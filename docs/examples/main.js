@@ -12,6 +12,8 @@ var AreaChart = rd3.AreaChart;
 var Treemap = rd3.Treemap;
 var ScatterChart= rd3.ScatterChart;
 
+var colorArray = ['#4581B6', '#F7941E', '#9B7A32', '#C9B894', '#849A3D'];
+
 hljs.initHighlightingOnLoad();
 
 var Demos = React.createClass({
@@ -282,7 +284,7 @@ var Demos = React.createClass({
         </div>
         <div className="row">
           <div className="col-md-6">
-            <BarChart data={barData} width={500} height={300} title="Bar Chart" yAxisLabel="Label" xAxisLabel="Value"/>
+            <BarChart data={barData} width={500} height={300} colors={colorArray} title="Bar Chart" yAxisLabel="Label" xAxisLabel="Value"/>
           </div>
           <div className="col-md-6">
             <pre ref='block'>
@@ -315,7 +317,7 @@ var Demos = React.createClass({
         </div>
         <div className="row">
           <div className="col-md-6">
-            <PieChart data={pieData} width={450} height={400} radius={110} innerRadius={20} sectorBorderColor="white" title="Pie Chart" />
+            <PieChart data={pieData} width={450} height={400} radius={108} innerRadius={72} hasOuterLabels={true} hasInnerLabels={true} colors={colorArray} sectorBorderColor="white" title="Pie Chart" />
           </div>
           <div className="col-md-6">
             <pre ref='block'>

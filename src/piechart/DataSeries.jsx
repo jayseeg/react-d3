@@ -10,25 +10,28 @@ module.exports = React.createClass({
   displayName: 'DataSeries',
 
   propTypes: {
-    data:              React.PropTypes.array,
-    values:            React.PropTypes.array,
-    labels:            React.PropTypes.array,
-    transform:         React.PropTypes.string,
-    innerRadius:       React.PropTypes.number,
-    radius:            React.PropTypes.number,
-    colors:            React.PropTypes.func,
-    colorAccessor:     React.PropTypes.func,
-    showInnerLabels:   React.PropTypes.bool,
-    showOuterLabels:   React.PropTypes.bool,
-    sectorBorderColor: React.PropTypes.string
+    data              : React.PropTypes.array,
+    values            : React.PropTypes.array,
+    labels            : React.PropTypes.array,
+    transform         : React.PropTypes.string,
+    innerRadius       : React.PropTypes.number,
+    radius            : React.PropTypes.number,
+    colors            : React.PropTypes.oneOfType([
+                         React.PropTypes.array,
+                         React.PropTypes.func
+                       ]),
+    colorAccessor     : React.PropTypes.func,
+    showInnerLabels   : React.PropTypes.bool,
+    showOuterLabels   : React.PropTypes.bool,
+    sectorBorderColor : React.PropTypes.string,
+    hasOuterLabels:     React.PropTypes.bool,
+    hasInnerLabels:     React.PropTypes.bool
   },
 
   getDefaultProps() {
     return {
       data:          [],
-      innerRadius:   0,
-      colors:        d3.scale.category20c(),
-      colorAccessor: (d, idx) => idx
+      innerRadius:   0
     };
   },
 
@@ -42,6 +45,9 @@ module.exports = React.createClass({
 
     var arcData = pie(props.values);
 
+    // we want an array
+    var colors = typeof props.colors === 'function' ? props.colors() : props.colors;
+
     var arcs = arcData.map((arc, idx) => {
       return (
         <ArcContainer
@@ -53,7 +59,7 @@ module.exports = React.createClass({
           labelTextFill={props.labelTextFill}
           valueTextFill={props.valueTextFill}
           valueTextFormatter={props.valueTextFormatter}
-          fill={props.colors(props.colorAccessor(props.data[idx], idx))}
+          fill={props.colors[props.colorAccessor(props.data[idx], idx)]}
           value={props.values[idx]}
           label={props.labels[idx]}
           width={props.width}
@@ -61,6 +67,8 @@ module.exports = React.createClass({
           showOuterLabels={props.showOuterLabels}
           sectorBorderColor={props.sectorBorderColor}
           hoverAnimation={props.hoverAnimation}
+          hasOuterLabels={props.hasOuterLabels}
+          hasInnerLabels={props.hasInnerLabels}
         />
       );
     });

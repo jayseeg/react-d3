@@ -11,7 +11,11 @@ module.exports = React.createClass({
   propTypes: {
     values: React.PropTypes.array,
     labels: React.PropTypes.array,
-    fill: React.PropTypes.string,
+    colors: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
+    colorAccessor: React.PropTypes.func,
     title: React.PropTypes.string,
     padding: React.PropTypes.number,
     width: React.PropTypes.number,
@@ -34,6 +38,9 @@ module.exports = React.createClass({
       .domain(d3.range(props.values.length))
       .rangeRoundBands([0, props.width], props.padding);
 
+    // we want an array
+    var colors = typeof props.colors === 'function' ? props.colors() : props.colors;
+
     var bars = props.values.map((point, idx) => {
       return (
         <BarContainer
@@ -42,7 +49,7 @@ module.exports = React.createClass({
           x={xScale(idx)}
           y={props.yScale(Math.max(0, point))}
           availableHeight={props.height}
-          fill={props.fill}
+          fill={props.colors[props.colorAccessor(props.data[idx], idx)]}
           key={idx}
           hoverAnimation={props.hoverAnimation}
         />
