@@ -17,13 +17,18 @@ module.exports = React.createClass({
     labelTextFill:      React.PropTypes.string,
     valueTextFill:      React.PropTypes.string,
     valueTextFormatter: React.PropTypes.func,
-    colors:             React.PropTypes.func,
+    colors:             React.PropTypes.oneOfType([
+                          React.PropTypes.array,
+                          React.PropTypes.func
+                        ]),
     colorAccessor:      React.PropTypes.func,
     title:              React.PropTypes.string,
     showInnerLabels:    React.PropTypes.bool,
     showOuterLabels:    React.PropTypes.bool,
     sectorBorderColor:  React.PropTypes.string,
-    hoverAnimation:     React.PropTypes.bool
+    hoverAnimation:     React.PropTypes.bool,
+    hasOuterLabels:     React.PropTypes.bool,
+    hasInnerLabels:     React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -31,7 +36,6 @@ module.exports = React.createClass({
       data:               [],
       title:              '',
       colors:             d3.scale.category20c(),
-      colorAccessor:      (d, idx) => idx,
       valueTextFormatter: (val) => `${ val }%`,
       hoverAnimation:     true
     };
@@ -44,6 +48,9 @@ module.exports = React.createClass({
 
     var values = props.data.map( (item) => item.value );
     var labels = props.data.map( (item) => item.label );
+
+    // setting here to make sure length of colors is available
+    var colorAccessor = (d, idx) => idx % props.colors.length;
 
     return (
       <Chart
@@ -60,7 +67,7 @@ module.exports = React.createClass({
             values={values}
             labels={labels}
             colors={props.colors}
-            colorAccessor={props.colorAccessor}
+            colorAccessor={colorAccessor}
             transform={transform}
             width={props.width}
             height={props.height}
@@ -70,6 +77,8 @@ module.exports = React.createClass({
             showOuterLabels={props.showOuterLabels}
             sectorBorderColor={props.sectorBorderColor}
             hoverAnimation={props.hoverAnimation}
+            hasOuterLabels={props.hasOuterLabels}
+            hasInnerLabels={props.hasInnerLabels}
           />
         </g>
       </Chart>

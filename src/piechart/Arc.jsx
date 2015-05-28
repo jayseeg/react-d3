@@ -56,6 +56,9 @@ module.exports = React.createClass({
   },
 
   renderInnerLabel(props, arc) {
+    // shortcircuit for no inner labels
+    if (!props.hasInnerLabels) return false;
+
     // make value text can be formatted
     var formattedValue = props.valueTextFormatter(props.value);
     return (
@@ -74,6 +77,8 @@ module.exports = React.createClass({
   },
 
   renderOuterLabel(props, arc) {
+    // shortcircuit for no outer labels
+    if (!props.hasOuterLabels) return false;
 
     var rotate = `rotate(${ (props.startAngle+props.endAngle)/2 * (180/Math.PI) })`;
     var positions = arc.centroid();
