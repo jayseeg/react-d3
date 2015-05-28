@@ -282,7 +282,7 @@ var Demos = React.createClass({
         </div>
         <div className="row">
           <div className="col-md-6">
-            <BarChart data={barData} width={500} height={300} title="Bar Chart" yAxisLabel="Label" xAxisLabel="Value"/>
+            <BarChart data={barData} width={500} height={300} colors={['#4581B6', '#F7941E', '#9B7A32', '#C9B894', '#849A3D']} title="Bar Chart" yAxisLabel="Label" xAxisLabel="Value"/>
           </div>
           <div className="col-md-6">
             <pre ref='block'>
