@@ -47,6 +47,7 @@ module.exports = React.createClass({
         title={props.title}
         width={props.width}
         height={props.height}
+        {...props}
       >
         <g className='rd3-treemap'>
           <DataSeries

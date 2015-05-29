@@ -22,7 +22,8 @@ module.exports = React.createClass({
     data:           React.PropTypes.oneOfType([
                       React.PropTypes.object,
                       React.PropTypes.array
-                    ])
+                    ]),
+    headingStyles:  React.PropTypes.object,
   },
 
   getDefaultProps() {
@@ -32,7 +33,8 @@ module.exports = React.createClass({
       legendPosition: 'right',
       sideOffset:     90,
       colors:         d3.scale.category20c(),
-      colorAccessor:  (d, idx) => idx
+      colorAccessor:  (d, idx) => idx,
+      headingStyles:  {}
     };
   },
 
@@ -58,7 +60,7 @@ module.exports = React.createClass({
   _renderTitle() {
     var props = this.props;
     if (props.title != null) {
-      return <h4>{props.title}</h4>;
+      return <h5 style={props.headingStyles}>{props.title}</h5>;
     }
     return null;
   },
