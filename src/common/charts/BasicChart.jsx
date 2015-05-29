@@ -19,7 +19,7 @@ module.exports = React.createClass({
 
     if (props.title != null) {
       return (
-        <h4>{props.title}</h4>
+        <h5>{props.title}</h5>
       );
     } else {
       return null;
