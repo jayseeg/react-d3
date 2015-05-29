@@ -107,6 +107,7 @@ module.exports = React.createClass({
         width={props.width}
         height={props.height}
         title={props.title}
+        {...props}
       >
         <g transform={trans} className={props.className}>
           {dataSeriesArray}

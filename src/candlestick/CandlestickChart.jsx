@@ -109,6 +109,7 @@ module.exports = React.createClass({
         height={props.height}
         margins={props.margins}
         title={props.title}
+        {...props}
       >
         <g transform={trans} className='rd3-candlestick'>
           {dataSeries}

@@ -57,6 +57,7 @@ module.exports = React.createClass({
         width={props.width}
         height={props.height}
         title={props.title}
+        {...props}
       >
         <g className='rd3-piechart'>
           <DataSeries
