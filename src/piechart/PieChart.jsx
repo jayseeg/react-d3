@@ -2,7 +2,7 @@
 
 var React = require('react');
 var DataSeries = require('./DataSeries');
-var Chart = require('../common').Chart;
+var LegendChart = require('../common').LegendChart;
 
 
 module.exports = React.createClass({
@@ -28,11 +28,13 @@ module.exports = React.createClass({
     sectorBorderColor:  React.PropTypes.string,
     hoverAnimation:     React.PropTypes.bool,
     hasOuterLabels:     React.PropTypes.bool,
-    hasInnerLabels:     React.PropTypes.bool
+    hasInnerLabels:     React.PropTypes.bool,
+    legendKey:          React.PropTypes.string
   },
 
   getDefaultProps: function() {
     return {
+      margins:            {top: 10, right: 20, bottom: 40, left: 45},
       data:               [],
       title:              '',
       colors:             d3.scale.category20c(),
@@ -53,10 +55,11 @@ module.exports = React.createClass({
     var colorAccessor = (d, idx) => idx % props.colors.length;
 
     return (
-      <Chart
+      <LegendChart
         width={props.width}
         height={props.height}
         title={props.title}
+        legendKey={props.legendKey}
         {...props}
       >
         <g className='rd3-piechart'>
@@ -74,15 +77,15 @@ module.exports = React.createClass({
             height={props.height}
             radius={props.radius}
             innerRadius={props.innerRadius}
-            showInnerLabels={props.showInnerLabels}
-            showOuterLabels={props.showOuterLabels}
+            showInnerLabels={props.hasInnerLabels}
+            showOuterLabels={props.hasOuterLabels}
             sectorBorderColor={props.sectorBorderColor}
             hoverAnimation={props.hoverAnimation}
             hasOuterLabels={props.hasOuterLabels}
             hasInnerLabels={props.hasInnerLabels}
           />
         </g>
-      </Chart>
+      </LegendChart>
     );
   }
 
