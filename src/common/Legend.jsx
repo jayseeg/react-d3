@@ -12,8 +12,12 @@ module.exports = React.createClass({
     height:        React.PropTypes.number,
     margins:       React.PropTypes.object,
     text:          React.PropTypes.string,
-    colors:        React.PropTypes.func,
-    colorAccessor: React.PropTypes.func
+    colors:        React.PropTypes.oneOfType([
+                     React.PropTypes.array,
+                     React.PropTypes.func
+                   ]),
+    colorAccessor: React.PropTypes.func,
+    legendKey:     React.PropTypes.string
   },
 
   getDefaultProps: function() {
@@ -21,6 +25,7 @@ module.exports = React.createClass({
       text:          "#000",
       colors:        d3.scale.category20c(),
       colorAccessor: (d, idx) => idx,
+      legendKey:     'name'
     };
   },
 
@@ -39,7 +44,7 @@ module.exports = React.createClass({
     props.data.forEach( (series, idx) => {
 
       var itemStyle = {
-        'color': props.colors(props.colorAccessor(series, idx)),
+        'color': props.colors[props.colorAccessor(series, idx)],
         'lineHeight': '60%',
         'fontSize': '200%'
       };
@@ -52,7 +57,7 @@ module.exports = React.createClass({
           <span
             style={textStyle}
           >
-            {series.name}
+            {series[props.legendKey]}
           </span>
         </li>
       );
