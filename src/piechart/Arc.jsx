@@ -19,7 +19,8 @@ module.exports = React.createClass({
     valueTextFill: React.PropTypes.string,
     sectorBorderColor: React.PropTypes.string,
     showInnerLabels: React.PropTypes.bool,
-    showOuterLabels: React.PropTypes.bool
+    showOuterLabels: React.PropTypes.bool,
+    href: React.PropTypes.string
   },
 
   getDefaultProps() {
@@ -27,7 +28,8 @@ module.exports = React.createClass({
       labelTextFill: 'black',
       valueTextFill: 'white',
       showInnerLabels: true,
-      showOuterLabels: true
+      showOuterLabels: true,
+      href: null
     };
   },
 
@@ -40,19 +42,49 @@ module.exports = React.createClass({
       .startAngle(props.startAngle)
       .endAngle(props.endAngle);
 
+    // forking for adding hrefs in the sloppy way that we have to given current support for SVG in React
+    if (props.href) {
+      return (
+        <g
+          className='rd3-piechart-arc'
+          dangerouslySetInnerHTML={{__html: this.renderAnchor(props, arc)}}
+        >
+        </g>
+      );
+    } else {
+      return (
+        <g className='rd3-piechart-arc' >
+          <path
+            d={arc()}
+            fill={props.fill}
+            stroke={props.sectorBorderColor}
+            onMouseOver={props.handleMouseOver}
+            onMouseLeave={props.handleMouseLeave}
+          />
+          {props.showOuterLabels ? this.renderOuterLabel(props, arc) : null}
+          {props.showInnerLabels ? this.renderInnerLabel(props, arc) : null}
+        </g>
+      );
+    }
+  },
+
+  renderAnchor(props, arc) {
+    var path = React.renderToString(this.renderArc(props, arc));
+    var outerLabels = props.showOuterLabels ? React.renderToString(this.renderOuterLabel(props, arc)) : null;
+    var innerLabels = props.showInnerLabels ? React.renderToString(this.renderInnerLabel(props, arc)) : null;
+    return `<a xlink:href=${props.href}>${path}${outerLabels}${innerLabels}</a>`;
+  },
+
+  renderArc(props, arc) {
     return (
-      <g className='rd3-piechart-arc' >
-        <path
-          d={arc()}
-          fill={props.fill}
-          stroke={props.sectorBorderColor}
-          onMouseOver={props.handleMouseOver}
-          onMouseLeave={props.handleMouseLeave}
-        />
-        {props.showOuterLabels ? this.renderOuterLabel(props, arc) : null}
-        {props.showInnerLabels ? this.renderInnerLabel(props, arc) : null}
-      </g>
-    );
+      <path
+        d={arc()}
+        fill={props.fill}
+        stroke={props.sectorBorderColor}
+        onMouseOver={props.handleMouseOver}
+        onMouseLeave={props.handleMouseLeave}
+      />
+    )
   },
 
   renderInnerLabel(props, arc) {
