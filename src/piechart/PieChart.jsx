@@ -46,7 +46,7 @@ module.exports = React.createClass({
   render: function() {
     var props = this.props;
 
-    var transform = `translate(${ props.cx || props.width/2 },${ props.cy || props.height/2 })`;
+    var transform = `translate(${ props.radius },${ props.radius })`;
 
     var values = props.data.map( (item) => item.value );
     var labels = props.data.map( (item) => item.label );
