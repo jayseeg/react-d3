@@ -72,12 +72,13 @@ module.exports = React.createClass({
 
   render() {
     var props = this.props;
+    var svgWidth = props.radius ? props.radius * 2 : props.width - props.sideOffset;
 
     return (
       <div style={{'width': props.width, 'height': props.height}} >
         {this._renderTitle()}
         {this._renderLegend()}
-        <svg viewBox={props.viewBox} width={props.width - props.sideOffset} height={props.height}>{props.children}</svg>
+        <svg viewBox={props.viewBox} width={svgWidth} height={props.height}>{props.children}</svg>
       </div>
     );
   }
