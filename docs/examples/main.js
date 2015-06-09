@@ -68,6 +68,11 @@ var Demos = React.createClass({
     var barData = [{label: 'AA', value: 5}, {label: 'B', value: 6}, {label: 'C', value: 2}, {label: 'D', value: 11}, {label: 'E', value: 2}, {label: 'F', value: 7}];
     var pieData = [{label: "Margarita", value: 20.0}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }];
 
+    // Custom curried prepend function to pass in
+    var PercentagePrepender = function PercentagePrepender (total, item) {
+      return item => Math.round((item / total) * 100) + '% ';
+    };
+
     // 2014 Most Populous Countries
     // http://www.prb.org/pdf14/2014-world-population-data-sheet_eng.pdf
     var treemapData = [{label: 'China', value: 1364}, {label: 'India', value: 1296}, {label: 'United States', value: 318}, {label: 'Indonesia', value: 251}, {label: 'Brazil', value: 203}];
@@ -317,7 +322,7 @@ var Demos = React.createClass({
         </div>
         <div className="row">
           <div className="col-md-6">
-            <PieChart data={pieData} legendKey='label' legend={true} width={450} height={400} radius={108} innerRadius={72} showInnerLabels={false} showOuterLabels={false} colors={colorArray} sectorBorderColor="white" title="Pie Chart" />
+            <PieChart data={pieData} legendKey='label' prepender={PercentagePrepender} valueAccessor='value' legend={true} width={450} height={400} radius={108} innerRadius={72} showInnerLabels={false} showOuterLabels={false} colors={colorArray} sectorBorderColor="white" title="Pie Chart" />
           </div>
           <div className="col-md-6">
             <pre ref='block'>
