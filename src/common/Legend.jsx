@@ -17,7 +17,8 @@ module.exports = React.createClass({
                      React.PropTypes.func
                    ]),
     colorAccessor: React.PropTypes.func,
-    legendKey:     React.PropTypes.string
+    legendKey:     React.PropTypes.string,
+    prepender:     React.PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -25,7 +26,9 @@ module.exports = React.createClass({
       text:          "#000",
       colors:        d3.scale.category20c(),
       colorAccessor: (d, idx) => idx,
-      legendKey:     'name'
+      legendKey:     'name',
+      prepender:     () => undefined,
+      totalAccessor: (mem, d) => mem + d.value
     };
   },
 
@@ -41,6 +44,19 @@ module.exports = React.createClass({
 
     var legendItems = [];
 
+    // Default to blank prepend
+    var prependWithTotal = () => '';
+    // If prepender actually returns, assume it's meant to be used
+    if (typeof props.prepender() !== 'undefined') {
+      var GetTotalWith = function GetTotalWith (valAccessor) {
+        return arr => arr.reduce((mem, datum) => mem + datum[valAccessor], 0);
+      };
+      // Setup a sum function with a custom key
+      var getTotalWithAccessor = GetTotalWith(props.valueAccessor);
+      // Setup a prepend function based on supplied prepender w/ our total
+      prependWithTotal = props.prepender(getTotalWithAccessor(props.data));
+    }
+
     props.data.forEach( (series, idx) => {
 
       var itemStyle = {
@@ -48,6 +64,11 @@ module.exports = React.createClass({
         'lineHeight': '60%',
         'fontSize': '200%'
       };
+
+      // Use prepender to generate string to prepend
+      var prepend = prependWithTotal(series[props.valueAccessor]);
+
+      var legendOutput = `${prepend}${series[props.legendKey]}`;
 
       legendItems.push(
         <li
@@ -57,7 +78,7 @@ module.exports = React.createClass({
           <span
             style={textStyle}
           >
-            {series[props.legendKey]}
+            {legendOutput}
           </span>
         </li>
       );

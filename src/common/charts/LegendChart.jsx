@@ -57,6 +57,7 @@ module.exports = React.createClass({
           height={props.height}
           sideOffset={props.sideOffset}
           legendKey={props.legendKey}
+          {...props}
         />
       );
     }
