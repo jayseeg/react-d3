@@ -10,8 +10,6 @@ module.exports = React.createClass({
 
   propTypes: {
     fill           : React.PropTypes.string,
-    hasOuterLabels : React.PropTypes.bool,
-    hasInnerLabels : React.PropTypes.bool,
     href           : React.PropTypes.string
   },
 
@@ -33,8 +31,6 @@ module.exports = React.createClass({
         fill={this.state.fill}
         handleMouseOver={props.hoverAnimation ? this._animateArc : null}
         handleMouseLeave={props.hoverAnimation ? this._restoreArc : null}
-        hasOuterLabels={props.hasOuterLabels}
-        hasInnerLabels={props.hasInnerLabels}
         href={props.href}
       />
     );

@@ -27,8 +27,6 @@ module.exports = React.createClass({
     showOuterLabels:    React.PropTypes.bool,
     sectorBorderColor:  React.PropTypes.string,
     hoverAnimation:     React.PropTypes.bool,
-    hasOuterLabels:     React.PropTypes.bool,
-    hasInnerLabels:     React.PropTypes.bool,
     legendKey:          React.PropTypes.string
   },
 
@@ -77,12 +75,10 @@ module.exports = React.createClass({
             height={props.height}
             radius={props.radius}
             innerRadius={props.innerRadius}
-            showInnerLabels={props.hasInnerLabels}
-            showOuterLabels={props.hasOuterLabels}
+            showInnerLabels={props.showInnerLabels}
+            showOuterLabels={props.showOuterLabels}
             sectorBorderColor={props.sectorBorderColor}
             hoverAnimation={props.hoverAnimation}
-            hasOuterLabels={props.hasOuterLabels}
-            hasInnerLabels={props.hasInnerLabels}
           />
         </g>
       </LegendChart>
