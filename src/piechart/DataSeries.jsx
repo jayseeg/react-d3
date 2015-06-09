@@ -24,8 +24,6 @@ module.exports = React.createClass({
     showInnerLabels   : React.PropTypes.bool,
     showOuterLabels   : React.PropTypes.bool,
     sectorBorderColor : React.PropTypes.string,
-    hasOuterLabels    : React.PropTypes.bool,
-    hasInnerLabels    : React.PropTypes.bool,
     href              : React.PropTypes.string
   },
 
@@ -68,8 +66,6 @@ module.exports = React.createClass({
           showOuterLabels={props.showOuterLabels}
           sectorBorderColor={props.sectorBorderColor}
           hoverAnimation={props.hoverAnimation}
-          hasOuterLabels={props.hasOuterLabels}
-          hasInnerLabels={props.hasInnerLabels}
           href={props.data[idx].href}
         />
       );
