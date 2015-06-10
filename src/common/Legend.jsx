@@ -38,8 +38,8 @@ module.exports = React.createClass({
     var props = this.props;
 
     var textStyle = {
-      'color': 'black',
-      'verticalAlign': 'top'
+      color: props.text,
+      verticalAlign: 'top'
     };
 
     var legendItems = [];
