@@ -3,6 +3,7 @@
 var React = require('react');
 var d3 = require('d3');
 var SVGAnchor = require('../common/SVGAnchor.jsx')
+var shade = require('../utils').shade;
 
 
 module.exports = React.createClass({
@@ -66,10 +67,8 @@ module.exports = React.createClass({
     return (
       <path
         d={arc()}
-        fill={props.fill}
+        fill={props.hoverData[props.id].isHovered ? shade(this.props.fill, 0.2) : props.fill}
         stroke={props.sectorBorderColor}
-        onMouseEnter={props.handleMouseEnter}
-        onMouseLeave={props.handleMouseLeave}
       />
     )
   },
@@ -83,9 +82,9 @@ module.exports = React.createClass({
           transform={`translate(${arc.centroid()})`}
           dy='.35em'
           style={{
-            'shapeRendering': 'crispEdges',
-            'textAnchor': 'middle',
-            'fill': props.valueTextFill
+            shapeRendering: 'crispEdges',
+            textAnchor: 'middle',
+            fill: props.valueTextFill
           }}>
           { formattedValue }
         </text>

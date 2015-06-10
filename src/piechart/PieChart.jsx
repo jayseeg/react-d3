@@ -40,8 +40,41 @@ module.exports = React.createClass({
     };
   },
 
+  getInitialState: function() {
+    var props = this.props;
+    var hoverData = props.data.map(function(datum, idx) {
+      return {
+        isHovered: false
+      };
+    });
+
+    return {
+      hoverData: hoverData
+    }
+  },
+
+  handleHover: function( idx ) {
+    var state = this.state;
+    var hoverData = state.hoverData.map(function(datum, i) {
+      if (i === idx) return {isHovered: true};
+      return {isHovered: false};
+    });
+
+    this.setState({hoverData: hoverData});
+  },
+
+  handleHoverOff: function( idx ) {
+    var state = this.state;
+    var hoverData = state.hoverData.map(function(datum) {
+      return {isHovered: false};
+    });
+
+    this.setState({hoverData: hoverData});
+  },
+
   render: function() {
     var props = this.props;
+    var state = this.state;
 
     var values = props.data.map( (item) => item.value );
     var labels = props.data.map( (item) => item.label );
@@ -62,6 +95,9 @@ module.exports = React.createClass({
         {...props}
         containerWidth={props.width}
         width={width}
+        hoverData={state.hoverData}
+        handleHover={this.handleHover}
+        handleHoverOff={this.handleHoverOff}
       >
         <g className='rd3-piechart'>
           <DataSeries
@@ -74,6 +110,9 @@ module.exports = React.createClass({
             containerWidth={props.width}
             radius={radius}
             innerRadius={innerRadius}
+            hoverData={state.hoverData}
+            handleHover={this.handleHover}
+            handleHoverOff={this.handleHoverOff}
           />
         </g>
       </Chart>
