@@ -66,7 +66,7 @@ var Demos = React.createClass({
     ];
 
     var barData = [{label: 'AA', value: 5}, {label: 'B', value: 6}, {label: 'C', value: 2}, {label: 'D', value: 11}, {label: 'E', value: 2}, {label: 'F', value: 7}];
-    var pieData = [{label: "Margarita", value: 20.0}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }];
+    var pieData = [{label: "Margarita", value: 20.0, href: "http://www.google.com"}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }];
 
     // Custom curried prepend function to pass in
     var PercentagePrepender = function PercentagePrepender (total, item) {
