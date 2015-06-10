@@ -2,6 +2,7 @@
 
 var React = require('react');
 var d3 = require('d3');
+var SVGAnchor = require('./SVGAnchor.jsx')
 
 module.exports = React.createClass({
 
@@ -68,7 +69,7 @@ module.exports = React.createClass({
       // Use prepender to generate string to prepend
       var prepend = prependWithTotal(series[props.valueAccessor]);
 
-      var legendOutput = `${prepend}${series[props.legendKey]}`;
+      var children = [`${prepend}${series[props.legendKey]}`];
 
       legendItems.push(
         <li
@@ -78,7 +79,12 @@ module.exports = React.createClass({
           <span
             style={textStyle}
           >
-            {legendOutput}
+            <SVGAnchor
+              {...series}
+              svgChildren={false}
+            >
+              {children}
+            </SVGAnchor>
           </span>
         </li>
       );

@@ -2,6 +2,7 @@
 
 var React = require('react');
 var d3 = require('d3');
+var SVGAnchor = require('../common/SVGAnchor.jsx')
 
 
 module.exports = React.createClass({
@@ -43,36 +44,26 @@ module.exports = React.createClass({
       .endAngle(props.endAngle);
 
     // forking for adding hrefs in the sloppy way that we have to given current support for SVG in React
-    if (props.href) {
-      return (
-        <g
-          className='rd3-piechart-arc'
-          dangerouslySetInnerHTML={{__html: this.renderAnchor(props, arc)}}
+
+    // props.childs = [
+    //   this.renderArc(props, arc),
+    //   props.showOuterLabels ? this.renderOuterLabel(props, arc) : null,
+    //   props.showInnerLabels ? this.renderInnerLabel(props, arc) : null
+    // ];
+
+    return (
+      <g className='rd3-piechart-arc'>
+        <SVGAnchor
+          {...props}
+          handleOnMouseEnter={props.handleMouseEnter}
+          handleOnMouseLeave={props.handleMouseLeave}
         >
-        </g>
-      );
-    } else {
-      return (
-        <g className='rd3-piechart-arc' >
-          <path
-            d={arc()}
-            fill={props.fill}
-            stroke={props.sectorBorderColor}
-            onMouseOver={props.handleMouseOver}
-            onMouseLeave={props.handleMouseLeave}
-          />
+          {this.renderArc(props, arc)}
           {props.showOuterLabels ? this.renderOuterLabel(props, arc) : null}
           {props.showInnerLabels ? this.renderInnerLabel(props, arc) : null}
-        </g>
-      );
-    }
-  },
-
-  renderAnchor(props, arc) {
-    var path = React.renderToString(this.renderArc(props, arc));
-    var outerLabels = props.showOuterLabels ? React.renderToString(this.renderOuterLabel(props, arc)) : null;
-    var innerLabels = props.showInnerLabels ? React.renderToString(this.renderInnerLabel(props, arc)) : null;
-    return `<a xlink:href=${props.href}>${path}${outerLabels}${innerLabels}</a>`;
+        </SVGAnchor>
+      </g>
+    );
   },
 
   renderArc(props, arc) {
@@ -81,7 +72,7 @@ module.exports = React.createClass({
         d={arc()}
         fill={props.fill}
         stroke={props.sectorBorderColor}
-        onMouseOver={props.handleMouseOver}
+        onMouseEnter={props.handleMouseEnter}
         onMouseLeave={props.handleMouseLeave}
       />
     )
