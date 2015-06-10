@@ -22,7 +22,7 @@ module.exports = React.createClass({
     var state = this.state;
 
     // if we have handed down the handlers && the element will be wrapped
-    if (typeof props.handleOnMouseEnter === 'function' && props.href) {
+    if (typeof props.handleMouseEnter === 'function' && props.href) {
       var domNode = this.getDOMNode();
 
       // manually managing listeners due to use of dangerHTML

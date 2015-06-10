@@ -11,7 +11,6 @@ module.exports = React.createClass({
 
   propTypes: {
     data:               React.PropTypes.array,
-    radius:             React.PropTypes.number,
     cx:                 React.PropTypes.number,
     cy:                 React.PropTypes.number,
     labelTextFill:      React.PropTypes.string,
@@ -44,41 +43,38 @@ module.exports = React.createClass({
   render: function() {
     var props = this.props;
 
-    var transform = `translate(${ props.radius },${ props.radius })`;
-
     var values = props.data.map( (item) => item.value );
     var labels = props.data.map( (item) => item.label );
 
     // setting here to make sure length of colors is available
     var colorAccessor = (d, idx) => idx % props.colors.length;
 
+    var width = (props.width - props.gutterWidth) / 2;
+
+    var radius = props.height > width ? width / 2 : props.height / 2;
+
+    var innerRadius = radius - props.thickness;
+
+    var transform = `translate(${ radius },${ radius })`;
+
     return (
       <LegendChart
-        width={props.width}
-        height={props.height}
-        title={props.title}
-        legendKey={props.legendKey}
         {...props}
+        legendKey={props.legendKey}
+        containerWidth={props.width}
+        width={width}
       >
         <g className='rd3-piechart'>
           <DataSeries
-            labelTextFill={props.labelTextFill}
-            valueTextFill={props.valueTextFill}
-            valueTextFormatter={props.valueTextFormatter}
-            data={props.data}
+            {...props}
             values={values}
             labels={labels}
-            colors={props.colors}
             colorAccessor={colorAccessor}
             transform={transform}
-            width={props.width}
-            height={props.height}
-            radius={props.radius}
-            innerRadius={props.innerRadius}
-            showInnerLabels={props.showInnerLabels}
-            showOuterLabels={props.showOuterLabels}
-            sectorBorderColor={props.sectorBorderColor}
-            hoverAnimation={props.hoverAnimation}
+            width={width}
+            containerWidth={props.width}
+            radius={radius}
+            innerRadius={innerRadius}
           />
         </g>
       </LegendChart>

@@ -50,22 +50,14 @@ module.exports = React.createClass({
     var arcs = arcData.map((arc, idx) => {
       return (
         <ArcContainer
+          {...props}
           key={idx}
           startAngle={arc.startAngle}
           endAngle={arc.endAngle}
           outerRadius={props.radius}
-          innerRadius={props.innerRadius}
-          labelTextFill={props.labelTextFill}
-          valueTextFill={props.valueTextFill}
-          valueTextFormatter={props.valueTextFormatter}
           fill={props.colors[props.colorAccessor(props.data[idx], idx)]}
           value={props.values[idx]}
           label={props.labels[idx]}
-          width={props.width}
-          showInnerLabels={props.showInnerLabels}
-          showOuterLabels={props.showOuterLabels}
-          sectorBorderColor={props.sectorBorderColor}
-          hoverAnimation={props.hoverAnimation}
           href={props.data[idx].href}
         />
       );

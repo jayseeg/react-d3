@@ -47,18 +47,7 @@ module.exports = React.createClass({
 
     if (props.legend) {
       return (
-        <Legend
-          legendPosition={props.legendPosition}
-          margins={props.margins}
-          colors={props.colors}
-          colorAccessor={props.colorAccessor}
-          data={props.data}
-          width={props.width}
-          height={props.height}
-          sideOffset={props.sideOffset}
-          legendKey={props.legendKey}
-          {...props}
-        />
+        <Legend {...props} />
       );
     }
   },
@@ -73,13 +62,12 @@ module.exports = React.createClass({
 
   render() {
     var props = this.props;
-    var svgWidth = props.radius ? props.radius * 2 : props.width - props.sideOffset;
 
     return (
-      <div style={{'width': props.width, 'height': props.height}} >
+      <div style={{'width': props.containerWidth, 'height': props.height}} >
         {this._renderTitle()}
         {this._renderLegend()}
-        <svg viewBox={props.viewBox} width={svgWidth} height={props.height}>{props.children}</svg>
+        <svg viewBox={props.viewBox} width={props.width} height={props.height}>{props.children}</svg>
       </div>
     );
   }
