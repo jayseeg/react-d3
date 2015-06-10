@@ -68,7 +68,7 @@ module.exports = React.createClass({
       var childs = props.children.map(child => {
         if (child && React.isValidElement(child)) return React.renderToString(child);
         else if (child) return child;
-      });
+      }).join('');
       var hrefAttribute = 'href';
       var classAttribute = '';
       if (props.svgChildren) {

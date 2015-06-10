@@ -39,7 +39,6 @@ module.exports = React.createClass({
 
     var textStyle = {
       'color': 'black',
-      'fontSize': '50%',
       'verticalAlign': 'top'
     };
 
@@ -61,9 +60,16 @@ module.exports = React.createClass({
     props.data.forEach( (series, idx) => {
 
       var itemStyle = {
-        'color': props.colors[props.colorAccessor(series, idx)],
-        'lineHeight': '60%',
-        'fontSize': '200%'
+        'color': props.colors[props.colorAccessor(series, idx)]
+      };
+
+      var dotStyle = {
+        display: 'inline-block',
+        width: 8,
+        height: 8,
+        marginRight: 5,
+        borderRadius: 8,
+        backgroundColor: props.colors[props.colorAccessor(series, idx)],
       };
 
       // Use prepender to generate string to prepend
@@ -83,6 +89,7 @@ module.exports = React.createClass({
               {...series}
               svgChildren={false}
             >
+              <div style={dotStyle}></div>
               {children}
             </SVGAnchor>
           </span>
@@ -97,12 +104,14 @@ module.exports = React.createClass({
     var topMargin = props.margins.top;
 
     var legendBlockStyle = {
-      'wordWrap': 'break-word',
-      'width': props.sideOffset,
-      'paddingLeft': '0',
-      'marginBottom': '0',
-      'marginTop': topMargin,
-      'float': legendFloat
+      wordWrap: 'break-word',
+      width: props.sideOffset,
+      paddingLeft: 0,
+      marginTop: topMargin,
+      marginLeft: 0,
+      marginBottom: 0,
+      float: legendFloat,
+      listStyle: 'none'
     };
 
     return <ul style={legendBlockStyle}>{legendItems}</ul>;
