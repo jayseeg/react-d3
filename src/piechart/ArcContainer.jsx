@@ -24,26 +24,26 @@ module.exports = React.createClass({
   render() {
 
     var props = this.props;
-    
+
     return (
       <Arc 
         {...this.props}
         fill={this.state.fill}
-        handleMouseEnter={props.hoverAnimation ? this._animateArc : null}
-        handleMouseLeave={props.hoverAnimation ? this._restoreArc : null}
+        handleMouseEnter={props.hoverAnimation ? props.handleHover : null}
+        handleMouseLeave={props.hoverAnimation ? props.handleHoverOff : null}
       />
     );
   },
 
-  _animateArc() {
-    this.setState({
-      fill: shade(this.props.fill, 0.2)
-    });
-  },
+  // _animateArc() {
+  //   this.setState({
+  //     fill: shade(this.props.fill, 0.2)
+  //   });
+  // },
 
-  _restoreArc() {
-    this.setState({
-      fill: this.props.fill
-    });
-  }
+  // _restoreArc() {
+  //   this.setState({
+  //     fill: this.props.fill
+  //   });
+  // }
 });

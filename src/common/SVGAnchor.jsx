@@ -22,7 +22,7 @@ module.exports = React.createClass({
     var state = this.state;
 
     // if we have handed down the handlers && the element will be wrapped
-    if (typeof props.handleMouseEnter === 'function' && props.href) {
+    if (typeof props.handleMouseEnter === 'function') {
       var domNode = this.getDOMNode();
 
       // manually managing listeners due to use of dangerHTML
@@ -44,7 +44,7 @@ module.exports = React.createClass({
     var state = this.state;
 
     if (!state.isHovered) {
-      props.handleMouseEnter();
+      props.handleMouseEnter(props.id);
       this.setState({isHovered: true});
     }
   },
@@ -54,7 +54,7 @@ module.exports = React.createClass({
     var state = this.state;
     
     if (state.isHovered) {
-      props.handleMouseLeave();
+      props.handleMouseLeave(props.id);
       this.setState({isHovered: false});
     }
   },

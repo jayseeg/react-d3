@@ -52,6 +52,7 @@ module.exports = React.createClass({
         <ArcContainer
           {...props}
           key={idx}
+          id={idx}
           startAngle={arc.startAngle}
           endAngle={arc.endAngle}
           outerRadius={props.radius}

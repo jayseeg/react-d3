@@ -2,7 +2,8 @@
 
 var React = require('react');
 var d3 = require('d3');
-var SVGAnchor = require('./SVGAnchor.jsx')
+var SVGAnchor = require('./SVGAnchor.jsx');
+var shade = require('../utils').shade;
 
 module.exports = React.createClass({
 
@@ -29,18 +30,26 @@ module.exports = React.createClass({
       colorAccessor: (d, idx) => idx,
       legendKey:     'name',
       prepender:     () => undefined,
-      totalAccessor: (mem, d) => mem + d.value
+      totalAccessor: (mem, d) => mem + d.value,
+      hoverData:     [],
+      handleHover:   () => undefined,
+      handleHoverOff:() => undefined
     };
   },
 
+  // handleHover: function( idx ) {
+  //   this.props.handleHover( idx )
+
+  //           handleHover={this.handleHover}
+  //           handleHoverOff={this.handleHoverOff}
+  // },
+
+  // handleHoverOff: function( idx ) {
+  //   this.setState({hoverData: hoverData});
+  // },
+
   render: function() {
-
     var props = this.props;
-
-    var textStyle = {
-      color: props.text,
-      verticalAlign: 'top'
-    };
 
     var legendItems = [];
 
@@ -60,16 +69,29 @@ module.exports = React.createClass({
     props.data.forEach( (series, idx) => {
 
       var itemStyle = {
-        'color': props.colors[props.colorAccessor(series, idx)]
+        color: props.colors[props.colorAccessor(series, idx)]
+      };
+
+      var dotColor = props.colors[props.colorAccessor(series, idx)];
+      var diameter = 8;
+      var offset = 0;
+      if (props.hoverData.length && props.hoverData[idx].isHovered) {
+        dotColor = shade(props.colors[props.colorAccessor(series, idx)], 0.2);
+        diameter = 12;
+        offset = 2;
       };
 
       var dotStyle = {
         display: 'inline-block',
-        width: 8,
-        height: 8,
-        marginRight: 5,
-        borderRadius: 8,
-        backgroundColor: props.colors[props.colorAccessor(series, idx)],
+        width: diameter,
+        height: diameter,
+        bottom: 0 - offset,
+        marginLeft: 0 - offset,
+        marginRight: 5 - offset,
+        borderRadius: 99,
+        backgroundColor: dotColor,
+        position: 'relative',
+        transition: 'background-color ease-in-out 0.111s',
       };
 
       // Use prepender to generate string to prepend
@@ -77,10 +99,18 @@ module.exports = React.createClass({
 
       var children = [`${prepend}${series[props.legendKey]}`];
 
+      var textStyle = {
+        color: props.text,
+        verticalAlign: 'top'
+      };
+
       legendItems.push(
         <li
           style={itemStyle}
           key={idx}
+          id={idx}
+          onMouseEnter={props.handleHover.bind(this, idx)}
+          onMouseLeave={props.handleHoverOff.bind(this, idx)}
         >
           <span
             style={textStyle}
