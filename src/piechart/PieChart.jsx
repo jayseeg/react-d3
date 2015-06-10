@@ -2,7 +2,7 @@
 
 var React = require('react');
 var DataSeries = require('./DataSeries');
-var LegendChart = require('../common').LegendChart;
+var Chart = require('../common').Chart;
 
 
 module.exports = React.createClass({
@@ -58,9 +58,8 @@ module.exports = React.createClass({
     var transform = `translate(${ radius },${ radius })`;
 
     return (
-      <LegendChart
+      <Chart
         {...props}
-        legendKey={props.legendKey}
         containerWidth={props.width}
         width={width}
       >
@@ -77,7 +76,7 @@ module.exports = React.createClass({
             innerRadius={innerRadius}
           />
         </g>
-      </LegendChart>
+      </Chart>
     );
   }
 

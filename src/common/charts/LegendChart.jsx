@@ -62,12 +62,13 @@ module.exports = React.createClass({
 
   render() {
     var props = this.props;
+    var svgWidth = props.legend ? props.width : props.containerWidth;
 
     return (
       <div style={{'width': props.containerWidth, 'height': props.height}} >
         {this._renderTitle()}
         {this._renderLegend()}
-        <svg viewBox={props.viewBox} width={props.width} height={props.height}>{props.children}</svg>
+        <svg viewBox={props.viewBox} width={svgWidth} height={props.height}>{props.children}</svg>
       </div>
     );
   }
