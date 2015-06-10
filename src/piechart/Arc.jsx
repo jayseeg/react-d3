@@ -53,11 +53,7 @@ module.exports = React.createClass({
 
     return (
       <g className='rd3-piechart-arc'>
-        <SVGAnchor
-          {...props}
-          handleOnMouseEnter={props.handleMouseEnter}
-          handleOnMouseLeave={props.handleMouseLeave}
-        >
+        <SVGAnchor {...props} >
           {this.renderArc(props, arc)}
           {props.showOuterLabels ? this.renderOuterLabel(props, arc) : null}
           {props.showInnerLabels ? this.renderInnerLabel(props, arc) : null}

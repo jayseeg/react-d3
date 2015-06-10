@@ -105,7 +105,7 @@ module.exports = React.createClass({
 
     var legendBlockStyle = {
       wordWrap: 'break-word',
-      width: props.sideOffset,
+      width: props.width,
       paddingLeft: 0,
       marginTop: topMargin,
       marginLeft: 0,

@@ -31,7 +31,6 @@ module.exports = React.createClass({
         fill={this.state.fill}
         handleMouseEnter={props.hoverAnimation ? this._animateArc : null}
         handleMouseLeave={props.hoverAnimation ? this._restoreArc : null}
-        href={props.href}
       />
     );
   },
