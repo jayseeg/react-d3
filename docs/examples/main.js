@@ -11,6 +11,7 @@ var PieChart = rd3.PieChart;
 var AreaChart = rd3.AreaChart;
 var Treemap = rd3.Treemap;
 var ScatterChart= rd3.ScatterChart;
+var FuelGaugeChart = rd3.FuelGaugeChart;
 
 var colorArray = ['#4581B6', '#F7941E', '#9B7A32', '#C9B894', '#849A3D'];
 
@@ -89,6 +90,12 @@ var Demos = React.createClass({
       {
         name: "series3",
         values: [ { x: 80, y: 78 }, { x: 71, y: 58 }, { x: 78, y: 68 }, { x: 81, y: 47 },{ x: 72, y: 70 }, { x: 70, y: 88 }, { x: 81, y: 90 }, { x: 92, y: 80 }, { x: 81, y: 72 }, { x: 99, y: 95 }, { x: 67, y: 81 }, { x: 96, y: 78 }]
+      }
+    ];
+
+    var fuelGaugeData = [
+      {
+        value: 69
       }
     ];
 
@@ -415,10 +422,46 @@ var treemapData = [
             </pre>
           </div>
         </div>
-
+        <div className="row">
+          <hr/>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <FuelGaugeChart data={fuelGaugeData} maxValue={100} thickness={50} width={500} height={400} title="Fuel Gauge Chart" />
+          </div>
+          <div className="col-md-6">
+            <pre ref='block'>
+              <code className='js'>
+              {
+`var fuelGaugeData = [
+  {
+    value: 69
+  }
+];`
+              }
+              </code>
+            </pre>
+            <pre ref='block'>
+              <code className='html'>
+              {
+`<FuelGaugeChart
+  data={fuelGaugeData}
+  maxValue={100}
+  thickness={50}
+  width={500}
+  height={400}
+  title="Fuel Gauge Chart"
+/>`
+              }
+              </code>
+            </pre>
+          </div>
+        </div>
       </div>
     );
   }
+
+
 
 });
 

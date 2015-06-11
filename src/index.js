@@ -5,4 +5,4 @@ exports.AreaChart = require('./areachart').AreaChart;
 exports.Treemap = require('./treemap').Treemap;
 exports.ScatterChart = require('./scatterchart').ScatterChart;
 exports.CandlestickChart = require('./candlestick').CandlestickChart;
-
+exports.FuelGaugeChart = require('./fuelgauge').FuelGaugeChart;
