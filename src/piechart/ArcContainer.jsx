@@ -22,7 +22,6 @@ module.exports = React.createClass({
   },
 
   render() {
-
     var props = this.props;
 
     return (
