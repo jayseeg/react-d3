@@ -32,7 +32,7 @@ module.exports = React.createClass({
         style={{
           fontSize: radius / 2,
           fontWeight: 700,
-          color: props.titleColor
+          fill: props.titleColor
         }}
         textAnchor='middle'
         transform={`translate(${radius}, ${radius + (radius / 5)})`}
