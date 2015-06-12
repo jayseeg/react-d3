@@ -24,7 +24,7 @@ module.exports = React.createClass({
     };
   },
 
-  renderNumber: function( radius, thickness, value ) {
+  renderNumber: function( radius, thickness, hCenter, value ) {
     var props = this.props;
 
     return (
@@ -35,7 +35,7 @@ module.exports = React.createClass({
           fill: props.titleColor
         }}
         textAnchor='middle'
-        transform={`translate(${radius}, ${radius + (radius / 5)})`}
+        transform={`translate(${hCenter}, ${radius + (radius / 5)})`}
       >{value}</text>
     );
   },
@@ -51,7 +51,9 @@ module.exports = React.createClass({
     var radius = props.height > props.width ? props.width / 2 : props.height / 2;
     var innerRadius = radius - props.thickness;
 
-    var transform = `translate(${radius}, ${radius}) rotate(-144)`
+    var hCenter = props.width / 2;
+
+    var transform = `translate(${hCenter}, ${radius}) rotate(-144)`;
 
     return (
       <Chart
@@ -69,7 +71,7 @@ module.exports = React.createClass({
             innerRadius={innerRadius}
           />
         </g>
-        {this.renderNumber(radius, props.thickness, values[0])}
+        {this.renderNumber(radius, props.thickness, hCenter, values[0])}
       </Chart>
     );
   }
