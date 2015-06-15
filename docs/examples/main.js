@@ -110,14 +110,27 @@ var Demos = React.createClass({
             <LineChart
               legend={true}
               data={lineData}
-              width={500}
-              height={300}
+              width={272}
+              height={170}
               title="Line Chart"
               yAxisLabel="Altitude"
               xAxisLabel="Elapsed Time (sec)"
               colors={colorArray}
               displayDataPoints={false}
               lineStrokeWidth={3}
+              yAxisStrokeWidth={0}
+              yOrient='leftFull'
+              yTickStrokeColor='lightgray'
+              yTickTextStroke='lightgray'
+              xInnerTickSize={6}
+              xAxisStrokeWidth={3}
+              xAxisStrokeColor='gray'
+              xOuterTickSize={0}
+              yAxisLabelOffset={10}
+              margins={{top: 30, right: 2, bottom: 40, left: 20}}
+              legendMargins={{top: 0, right: 2, bottom: 10, left: 0}}
+              verticalLegend={false}
+              legendFloat={false}
             />
           </div>
           <div className="col-md-6">
@@ -338,6 +351,7 @@ var Demos = React.createClass({
               prepender={PercentagePrepender}
               valueAccessor='value'
               legend={true}
+              legendFloat='right'
               width={450}
               height={300}
               gutterWidth={20}

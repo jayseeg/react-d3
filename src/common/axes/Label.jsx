@@ -31,6 +31,7 @@ module.exports = React.createClass({
             </text>
           );
         case 'left':
+        case 'leftFull':
           return (
             <text
               strokeWidth={strokeWidth}
