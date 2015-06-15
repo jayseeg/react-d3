@@ -107,6 +107,7 @@ module.exports = React.createClass({
           yAccessor={props.yAccessor}
           interpolationType={interpolationType}
           displayDataPoints={props.displayDataPoints}
+          lineStrokeWidth={props.lineStrokeWidth}
         />
       );
     });
