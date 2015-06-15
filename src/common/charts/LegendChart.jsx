@@ -47,7 +47,10 @@ module.exports = React.createClass({
 
     if (props.legend) {
       return (
-        <Legend {...props} />
+        <Legend
+          {...props}
+          vertical={props.verticalLegend}
+        />
       );
     }
   },

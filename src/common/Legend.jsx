@@ -13,6 +13,7 @@ module.exports = React.createClass({
     width:         React.PropTypes.number,
     height:        React.PropTypes.number,
     margins:       React.PropTypes.object,
+    legendMargins: React.PropTypes.object,
     text:          React.PropTypes.string,
     colors:        React.PropTypes.oneOfType([
                      React.PropTypes.array,
@@ -20,7 +21,8 @@ module.exports = React.createClass({
                    ]),
     colorAccessor: React.PropTypes.func,
     legendKey:     React.PropTypes.string,
-    prepender:     React.PropTypes.func
+    prepender:     React.PropTypes.func,
+    vertical:      React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -33,7 +35,9 @@ module.exports = React.createClass({
       totalAccessor: (mem, d) => mem + d.value,
       hoverData:     [],
       handleHover:   () => undefined,
-      handleHoverOff:() => undefined
+      handleHoverOff:() => undefined,
+      vertical:      true,
+      legendMargins: {top: 0, right: 0, bottom: 0, left: 0}
     };
   },
 
@@ -79,9 +83,17 @@ module.exports = React.createClass({
         fill = props.colors[colorAccessor(props.data[idx], idx)];
       }
 
-      var itemStyle = {
+      var verticalItemStyle = {
         color: fill
       };
+
+      var horizontalItemStyle = {
+        color: fill,
+        float: 'left',
+        marginRight: 10
+      };
+
+      var itemStyle = props.vertical ? verticalItemStyle : horizontalItemStyle;
 
       var dotColor = fill;
       var diameter = 8;
@@ -140,17 +152,18 @@ module.exports = React.createClass({
     });
 
     // In preparation for legend positioning
-    var legendFloat = 'right';
+    var legendFloat = props.legendFloat ? props.legendFloat : 'none';
 
-    var topMargin = props.margins.top;
+    var topMargin = props.legendMargins.top;
 
     var legendBlockStyle = {
       wordWrap: 'break-word',
       width: props.width,
       paddingLeft: 0,
-      marginTop: topMargin,
-      marginLeft: 0,
-      marginBottom: 0,
+      marginTop: props.legendMargins.top,
+      marginRight: props.legendMargins.right,
+      marginBottom: props.legendMargins.bottom,
+      marginLeft: props.legendMargins.left,
       float: legendFloat,
       listStyle: 'none'
     };

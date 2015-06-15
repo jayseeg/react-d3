@@ -25,7 +25,8 @@ module.exports = React.createClass({
       fill: 'none',
       tickArguments: [10],
       tickValues: null,
-      tickFormat: null 
+      tickFormat: null,
+      stroke: 'black'
     };
   },
 
@@ -53,7 +54,6 @@ module.exports = React.createClass({
     } else {
       d = "M" + sign * props.outerTickSize + "," + range[0] + "H0V" + range[1] + "H" + sign * props.outerTickSize;
     }
-
 
     return (
       <path

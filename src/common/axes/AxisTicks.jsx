@@ -16,7 +16,8 @@ module.exports = React.createClass({
     outerTickSize: React.PropTypes.number,
     tickPadding: React.PropTypes.number,
     tickFormat: React.PropTypes.func,
-    tickStroke: React.PropTypes.string
+    tickStroke: React.PropTypes.string,
+    displayText: React.PropTypes.bool
   },
   getDefaultProps() {
     return {
@@ -25,7 +26,8 @@ module.exports = React.createClass({
       tickStroke: '#000',
       tickPadding: 3,
       tickArguments: [10],
-      tickValues: null
+      tickValues: null,
+      displayText: true
     };
   },
 
@@ -72,14 +74,14 @@ module.exports = React.createClass({
         tr = (tick) => `translate(${adjustedScale(tick)},0)`;
         textAnchor = "middle";
         y2 = props.innerTickSize * sign;
-        y1 = tickSpacing * sign;
+        y1 = 10;
         dy =  sign < 0 ? "0em" : ".71em";
         break;
       case 'bottom':
         tr = (tick) => `translate(${adjustedScale(tick)},0)`;
         textAnchor = "middle";
         y2 = props.innerTickSize * sign;
-        y1 = tickSpacing * sign;
+        y1 = 10;
         dy =  sign < 0 ? "0em" : ".71em";
         break;
       case 'left':
@@ -89,6 +91,20 @@ module.exports = React.createClass({
         x1 = tickSpacing * -sign;
         dy = ".32em";
         break;
+      case 'leftFull':
+        tr = (tick) => `translate(0,${adjustedScale(tick)})`;
+        textAnchor = "beginning";
+        x2 = props.width;
+        x1 = 0;
+        dy = '-3px';
+        break;
+      case 'leftBlank':
+        tr = (tick) => `translate(0,${adjustedScale(tick)})`;
+        textAnchor = "beginning";
+        x2 = 0;
+        x1 = 0;
+        dy = '-3px';
+        break;
       case 'right':
         tr = (tick) => `translate(0,${adjustedScale(tick)})`;
         textAnchor = "start";
@@ -97,6 +113,8 @@ module.exports = React.createClass({
         dy = ".32em";
         break;
     }
+
+    var displayText = props.displayText ? 'block' : 'none';
 
     return (
       <g>
@@ -108,7 +126,7 @@ module.exports = React.createClass({
               <text
                 strokeWidth="0.01"
                 dy={dy} x={x1} y={y1}
-                style={{stroke:props.tickTextStroke, fill:props.tickTextStroke}}
+                style={{stroke:props.tickTextStroke, fill:props.tickTextStroke, display:displayText}}
                 textAnchor={textAnchor}
               >
                 {tickFormat(tick)}

@@ -13,7 +13,7 @@ module.exports = React.createClass({
   propTypes: {
     yAxisClassName: React.PropTypes.string,
     yAxisTickValues: React.PropTypes.array,
-    yOrient: React.PropTypes.oneOf(['left', 'right']),
+    yOrient: React.PropTypes.oneOf(['left', 'right', 'full']),
     yScale: React.PropTypes.func.isRequired,
     fill: React.PropTypes.string,
     stroke: React.PropTypes.string,
@@ -63,18 +63,21 @@ module.exports = React.createClass({
           tickValues={props.yAxisTickValues}
           tickFormatting={props.tickFormatting}
           tickArguments={tickArguments}
-          tickStroke={props.tickStroke}
-          tickTextStroke={props.tickTextStroke}
-          innerTickSize={props.tickSize}
+          tickStroke={props.yTickStrokeColor}
+          tickTextStroke={props.yTickTextStroke}
+          innerTickSize={props.yInnerTickSize}
           scale={props.yScale}
           orient={props.yOrient}
+          width={props.width}
+          displayText={props.yDisplayTickText}
         />
         <AxisLine
           scale={props.yScale}
-          stroke={props.stroke}
           orient={props.yOrient}
-          outerTickSize={props.tickSize}
+          outerTickSize={props.yOuterTickSize}
           {...props}
+          stroke={props.yAxisStrokeColor}
+          strokeWidth={props.yAxisStrokeWidth}
         />
         <Label
           label={props.yAxisLabel}
