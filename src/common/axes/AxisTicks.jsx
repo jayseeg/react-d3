@@ -95,7 +95,7 @@ module.exports = React.createClass({
         tr = (tick) => `translate(0,${adjustedScale(tick)})`;
         textAnchor = "beginning";
         x2 = props.width;
-        x1 = 0;
+        x1 = 0 - props.margins.left;
         dy = '-3px';
         break;
       case 'leftBlank':
@@ -121,7 +121,7 @@ module.exports = React.createClass({
         {ticks.map( (tick, idx) => {
           return (
             <g key={idx} className="tick" transform={tr(tick)} >
-              <line style={{shapeRendering:'crispEdges',opacity:'1',stroke:props.tickStroke}} x2={x2} y2={y2} >
+              <line style={{shapeRendering:'crispEdges',opacity:'1',stroke:props.tickStroke}} x1={x1} x2={x2} y2={y2} >
               </line>
               <text
                 strokeWidth="0.01"
