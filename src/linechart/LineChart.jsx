@@ -42,7 +42,9 @@ module.exports = React.createClass({
       interpolate:       false,
       interpolationType: null,
       displayDataPoints: true,
-      hoverAnimation:    true
+      hoverAnimation:    true,
+      yDomain:           null,
+      xDomain:           null
     };
   },
 
@@ -77,6 +79,9 @@ module.exports = React.createClass({
         yValues = flattenedData.yValues;
 
     var scales = utils.calculateScales(innerWidth, innerHeight, xValues, yValues);
+
+    scales.yScale = props.yDomain ? scales.yScale.domain(props.yDomain) : scales.yScale;
+    scales.xScale = props.xDomain ? scales.xScale.domain(props.xDomain) : scales.xScale;
 
     // setting here to make sure length of colors is available
     var colorAccessor = (d, idx) => idx % props.colors.length;
