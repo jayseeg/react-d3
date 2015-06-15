@@ -113,7 +113,7 @@ var Demos = React.createClass({
               width={272}
               height={170}
               title="Line Chart"
-              yAxisLabel="Altitude"
+              yAxisLabel=""
               xAxisLabel="Elapsed Time (sec)"
               colors={colorArray}
               displayDataPoints={false}
@@ -131,6 +131,7 @@ var Demos = React.createClass({
               legendMargins={{top: 0, right: 2, bottom: 10, left: 0}}
               verticalLegend={false}
               legendFloat={false}
+              yAxisTickCount={5}
             />
           </div>
           <div className="col-md-6">

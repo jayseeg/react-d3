@@ -74,6 +74,7 @@ module.exports = React.createClass({
           orient={props.xOrient}
           width={props.width}
           displayText={props.xDisplayTickText}
+          margins={props.margins}
         />
         <AxisLine
           scale={props.xScale}
