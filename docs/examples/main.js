@@ -124,7 +124,7 @@ var Demos = React.createClass({
               yTickTextStroke='lightgray'
               xInnerTickSize={6}
               xAxisStrokeWidth={3}
-              xAxisStrokeColor='gray'
+              xAxisStrokeColor='lightgray'
               xOuterTickSize={0}
               yAxisLabelOffset={10}
               margins={{top: 30, right: 2, bottom: 40, left: 20}}
@@ -132,6 +132,7 @@ var Demos = React.createClass({
               verticalLegend={false}
               legendFloat={false}
               yAxisTickCount={5}
+              yDomain={[0,100]}
             />
           </div>
           <div className="col-md-6">
