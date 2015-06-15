@@ -22,18 +22,23 @@ module.exports = React.createClass({
 
   propTypes: {
     margins:           React.PropTypes.object,
-    circleRadius:       React.PropTypes.number,
+    circleRadius:      React.PropTypes.number,
     displayDataPoints: React.PropTypes.bool,
     hoverAnimation:    React.PropTypes.bool,
     interpolate:       React.PropTypes.bool,
-    interpolationType: React.PropTypes.string
+    interpolationType: React.PropTypes.string,
+    colors:            React.PropTypes.oneOfType([
+                         React.PropTypes.array,
+                         React.PropTypes.func
+                       ]),
+    colorAccessor:     React.PropTypes.func,
   },
 
   getDefaultProps() {
     return {
       margins:           {top: 10, right: 20, bottom: 40, left: 45},
       className:         'rd3-linechart',
-      circleRadius:       3,
+      circleRadius:      3,
       interpolate:       false,
       interpolationType: null,
       displayDataPoints: true,
@@ -73,26 +78,36 @@ module.exports = React.createClass({
 
     var scales = utils.calculateScales(innerWidth, innerHeight, xValues, yValues);
 
-    var trans = `translate(${ props.margins.left },${ props.margins.top })`;
+    // setting here to make sure length of colors is available
+    var colorAccessor = (d, idx) => idx % props.colors.length;
 
+    var trans = `translate(${ props.margins.left },${ props.margins.top })`;
     var dataSeriesArray = data.map( (series, idx) => {
+      // making fill color available off of an array
+      var fill;
+      if (typeof props.colors === 'function') {
+        fill = props.colors(colorAccessor(series, idx));
+      } else {
+        fill = props.colors[colorAccessor(data[idx], idx)];
+      }
+
       return (
-          <DataSeries
-            key={idx}
-            structure={structure}
-            xScale={scales.xScale}
-            yScale={scales.yScale}
-            seriesName={series.name}
-            data={series.values}
-            width={innerWidth}
-            height={innerHeight}
-            fill={props.colors(props.colorAccessor(series, idx))}
-            circleRadius={props.circleRadius}
-            xAccessor={props.xAccessor}
-            yAccessor={props.yAccessor}
-            interpolationType={interpolationType}
-            displayDataPoints={props.displayDataPoints}
-          />
+        <DataSeries
+          key={idx}
+          structure={structure}
+          xScale={scales.xScale}
+          yScale={scales.yScale}
+          seriesName={series.name}
+          data={series.values}
+          width={innerWidth}
+          height={innerHeight}
+          fill={fill}
+          circleRadius={props.circleRadius}
+          xAccessor={props.xAccessor}
+          yAccessor={props.yAccessor}
+          interpolationType={interpolationType}
+          displayDataPoints={props.displayDataPoints}
+        />
       );
     });
 

@@ -68,18 +68,29 @@ module.exports = React.createClass({
 
     props.data.forEach( (series, idx) => {
 
+      // setting here to make sure length of colors is available
+      var colorAccessor = (d, idx) => idx % props.colors.length;
+
+      // making fill color available off of an array
+      var fill;
+      if (typeof props.colors === 'function') {
+        fill = props.colors(colorAccessor(series, idx));
+      } else {
+        fill = props.colors[colorAccessor(props.data[idx], idx)];
+      }
+
       var itemStyle = {
-        color: props.colors[props.colorAccessor(series, idx)]
+        color: fill
       };
 
-      var dotColor = props.colors[props.colorAccessor(series, idx)];
+      var dotColor = fill;
       var diameter = 8;
       var offset = 0;
       if (props.hoverData.length && props.hoverData[idx].isHovered) {
-        dotColor = shade(props.colors[props.colorAccessor(series, idx)], 0.2);
+        dotColor = shade(dotColor, 0.2);
         diameter = 12;
         offset = 2;
-      };
+      }
 
       var dotStyle = {
         display: 'inline-block',

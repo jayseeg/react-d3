@@ -63,11 +63,35 @@ var Demos = React.createClass({
       {
         name: 'series3',
         values: [ { x: 0, y: 0 }, { x: 1, y: 5 }, { x: 2, y: 8 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
-      } 
+      },
+      {
+        name: 'series4',
+        values: [ { x: 1, y: 1 }, { x: 2, y: 6 }, { x: 3, y: 9 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
+      },
+      {
+        name: 'series5',
+        values: [ { x: 2, y: 2 }, { x: 3, y: 7 }, { x: 4, y: 10 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
+      },
+      {
+        name: 'series6',
+        values: [ { x: 3, y: 3 }, { x: 4, y: 8 }, { x: 5, y: 11 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
+      },
+      {
+        name: 'series7',
+        values: [ { x: 4, y: 4 }, { x: 5, y: 9 }, { x: 6, y: 12 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
+      },
+      {
+        name: 'series8',
+        values: [ { x: 5, y: 5 }, { x: 6, y: 10 }, { x: 7, y: 13 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
+      },
+      {
+        name: 'series9',
+        values: [ { x: 6, y: 6 }, { x: 7, y: 11 }, { x: 8, y: 14 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
+      }
     ];
 
     var barData = [{label: 'AA', value: 5}, {label: 'B', value: 6}, {label: 'C', value: 2}, {label: 'D', value: 11}, {label: 'E', value: 2}, {label: 'F', value: 7}];
-    var pieData = [{label: "Margarita", value: 20.0, href: "http://www.google.com"}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }];
+    var pieData = [{label: "Margarita", value: 20.0, href: "http://www.google.com"}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }, {label: "Tom", value: 25.0 }, {label: "Timmy", value: 25.0 }, {label: "Timothy", value: 25.0 }, {label: "Tim Tebow", value: 25.0 }, {label: "Timster", value: 25.0 }, {label: "Timminy", value: 25.0 }];
 
     // Custom curried prepend function to pass in
     var PercentagePrepender = function PercentagePrepender (total, item) {
@@ -115,6 +139,7 @@ var Demos = React.createClass({
               title="Line Chart"
               yAxisLabel="Altitude"
               xAxisLabel="Elapsed Time (sec)"
+              colors={colorArray}
             />
           </div>
           <div className="col-md-6">
