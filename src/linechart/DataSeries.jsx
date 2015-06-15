@@ -132,6 +132,7 @@ module.exports = React.createClass({
           voronoiSeriesRef={voronoiSeriesRef}
           path={interpolatePath(props.data)}
           stroke={props.fill}
+          strokeWidth={props.lineStrokeWidth}
           seriesName={props.seriesName}
         />
         {circles}
