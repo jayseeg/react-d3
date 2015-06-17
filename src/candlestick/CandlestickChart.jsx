@@ -51,7 +51,9 @@ module.exports = React.createClass({
       height:           200,
       title:            '',
       xAccessor:        (d) => d.x,
-      yAccessor:        (d) => ({ open: d.open, high: d.high, low: d.low, close: d.close })
+      yAccessor:        (d) => ({ open: d.open, high: d.high, low: d.low, close: d.close }),
+      xIsRawDates:       false,
+      yIsRawDates:       false
     };
   },
 
@@ -80,7 +82,14 @@ module.exports = React.createClass({
         xValues = flattenedData.xValues,
         yValues = flattenedData.yValues;
 
-    var scales = utils.calculateScales(innerWidth, innerHeight, xValues, yValues);
+    var scales = utils.calculateScales(innerWidth, innerHeight, {
+      xValues: xValues,
+      isRawDates: props.xIsRawDates
+    },
+    {
+      yValues: yValues,
+      isRawDates: props.yIsRawDates
+    });
 
     var trans = `translate(${ props.yAxisOffset < 0 ? props.margins.left + Math.abs(props.yAxisOffset) : props.margins.left},${ props.margins.top })`;
 

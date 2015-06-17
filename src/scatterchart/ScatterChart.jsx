@@ -21,9 +21,11 @@ module.exports = React.createClass({
 
   getDefaultProps() {
     return {
-      circleRadius:    3,
-      margins:        {top: 10, right: 20, bottom: 50, left: 45},
-      hoverAnimation: true
+      circleRadius   : 3,
+      margins        : {top : 10, right : 20, bottom : 50, left : 45},
+      hoverAnimation : true,
+      xIsRawDates    : false,
+      yIsRawDates    : false
     };
   },
 
@@ -57,7 +59,16 @@ module.exports = React.createClass({
     var allValues = flattenedData.allValues,
         xValues = flattenedData.xValues,
         yValues = flattenedData.yValues;
-    var scales = this._calculateScales(innerWidth, innerHeight, xValues, yValues);
+    
+    var scales = utils.calculateScales(innerWidth, innerHeight, {
+      xValues: xValues,
+      isRawDates: props.xIsRawDates
+    },
+    {
+      yValues: yValues,
+      isRawDates: props.yIsRawDates
+    });
+
     var trans = "translate(" + (props.yAxisOffset < 0 ? props.margins.left + Math.abs(props.yAxisOffset) : props.margins.left) + "," + props.margins.top + ")";
 
     return (

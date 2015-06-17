@@ -1,28 +1,41 @@
 var d3 = require('d3');
 
 
-exports.calculateScales = (chartWidth, chartHeight, xValues, yValues) => {
+exports.calculateScales = (chartWidth, chartHeight, xValuesObj, yValuesObj) => {
 
   var xScale, yScale;
 
-  if (xValues.length > 0 && Object.prototype.toString.call(xValues[0]) === '[object Date]') {
+  var xValues = xValuesObj.xValues;
+  var yValues = yValuesObj.yValues;
+
+  if (xValues.length > 0 && (Object.prototype.toString.call(xValues[0]) === '[object Date]' || xValuesObj.isRawDates)) {
     xScale = d3.time.scale()
-      .range([0, chartWidth]);
+      .range([0, chartWidth])
+      .domain(d3.extent(xValues.map(function(date) {return new Date(date);})));
+  } else if (xValues.length > 0 && Object.prototype.toString.call(xValues[0]) === '[object Date]') {
+    xScale = d3.time.scale()
+      .range([0, chartWidth])
+      .domain(d3.extent(xValues.map(function(date) {return new Date(date);})));
   } else {
     xScale = d3.scale.linear()
-      .range([0, chartWidth]);
+      .range([0, chartWidth])
+      .domain(d3.extent(xValues));
   }
-  xScale.domain(d3.extent(xValues));
 
-  if (yValues.length > 0 && Object.prototype.toString.call(yValues[0]) === '[object Date]') {
+  if (yValues.length > 0 && (Object.prototype.toString.call(yValues[0]) === '[object Date]' || yValuesObj.isRawDates)) {
     yScale = d3.time.scale()
-      .range([chartHeight, 0]);
+      .range([chartHeight, 0])
+      .domain(d3.extent(yValues.map(function(date) {return new Date(date);})));
+  } else if (yValues.length > 0 && Object.prototype.toString.call(yValues[0]) === '[object Date]') {
+    yScale = d3.time.scale()
+      .range([chartHeight, 0])
+      .domain(d3.extent(yValues.map(function(date) {return new Date(date);})));
   } else {
     yScale = d3.scale.linear()
-      .range([chartHeight, 0]);
+      .range([chartHeight, 0])
+      .domain(d3.extent(yValues));
   }
 
-  yScale.domain(d3.extent(yValues));
 
   return {
     xScale: xScale,
