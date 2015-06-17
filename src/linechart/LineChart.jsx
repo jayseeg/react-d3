@@ -44,7 +44,9 @@ module.exports = React.createClass({
       displayDataPoints: true,
       hoverAnimation:    true,
       yDomain:           null,
-      xDomain:           null
+      xDomain:           null,
+      xIsRawDates:       false,
+      yIsRawDates:       false
     };
   },
 
@@ -78,7 +80,14 @@ module.exports = React.createClass({
         xValues = flattenedData.xValues,
         yValues = flattenedData.yValues;
 
-    var scales = utils.calculateScales(innerWidth, innerHeight, xValues, yValues);
+    var scales = utils.calculateScales(innerWidth, innerHeight, {
+      xValues: xValues,
+      isRawDates: props.xIsRawDates
+    },
+    {
+      yValues: yValues,
+      isRawDates: props.yIsRawDates
+    });
 
     scales.yScale = props.yDomain ? scales.yScale.domain(props.yDomain) : scales.yScale;
     scales.xScale = props.xDomain ? scales.xScale.domain(props.xDomain) : scales.xScale;
@@ -151,6 +160,7 @@ module.exports = React.createClass({
             yAxisStrokeWidth={props.yAxisStrokeWidth}
             yOuterTickSize={props.yOuterTickSize}
             yInnerTickSize={props.yInnerTickSize}
+            yIsRawDates={props.yIsRawDates}
             yScale={scales.yScale}
             yOrient={props.yOrient}
             yTickStrokeColor={props.yTickStrokeColor}
@@ -160,6 +170,8 @@ module.exports = React.createClass({
             height={innerHeight}
             stroke={props.axesColor}
             yDisplayTickText={props.yDisplayTickText}
+            yAxisTickInterval={props.yAxisTickInterval}
+            yLabelColor={props.yLabelColor}
           />
           <XAxis
             xAxisClassName='rd3-linechart-xaxis'
@@ -172,6 +184,7 @@ module.exports = React.createClass({
             xAxisStrokeWidth={props.xAxisStrokeWidth}
             xOuterTickSize={props.xOuterTickSize}
             xInnerTickSize={props.xInnerTickSize}
+            xIsRawDates={props.xIsRawDates}
             xScale={scales.xScale}
             xOrient={props.xOrient}
             xTickStrokeColor={props.xTickStrokeColor}
@@ -181,6 +194,8 @@ module.exports = React.createClass({
             height={innerHeight}
             stroke={props.axesColor}
             xDisplayTickText={props.xDisplayTickText}
+            xAxisTickInterval={props.xAxisTickInterval}
+            xLabelColor={props.xLabelColor}
           />
           {dataSeriesArray}
         </g>

@@ -15,6 +15,7 @@ module.exports = React.createClass({
         case 'top':
           return (
             <text
+              fill={props.labelColor}
               strokeWidth={strokeWidth}
               y={props.offset} x={props.width/2}
               textAnchor='middle' >
@@ -24,6 +25,7 @@ module.exports = React.createClass({
         case 'bottom':
           return (
             <text
+              fill={props.labelColor}
               strokeWidth={strokeWidth}
               y={props.offset} x={props.width/2}
               textAnchor='middle' >
@@ -34,6 +36,7 @@ module.exports = React.createClass({
         case 'leftFull':
           return (
             <text
+              fill={props.labelColor}
               strokeWidth={strokeWidth}
               y={-props.offset} x={-props.height/2}
               textAnchor='middle'
@@ -44,6 +47,7 @@ module.exports = React.createClass({
         case 'right':
           return (
             <text
+              fill={props.labelColor}
               strokeWidth={strokeWidth}
               y={props.offset} x={-props.height/2}
               textAnchor='middle'

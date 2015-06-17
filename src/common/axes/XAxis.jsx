@@ -62,10 +62,12 @@ module.exports = React.createClass({
           orient={props.xOrient}
           margins={props.margins}
           width={props.width}
+          labelColor={props.xLabelColor}
         />
         <AxisTicks
           tickValues={props.xAxisTickValues}
-          tickFormatting={props.tickFormatting}
+          tickFormatting={props.xAxisTickFormatting}
+          rawDates={props.xIsRawDates}
           tickArguments={tickArguments}
           tickStroke={props.xTickStrokeColor}
           tickTextStroke={props.xTickTextStroke}

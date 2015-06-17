@@ -61,7 +61,8 @@ module.exports = React.createClass({
       >
         <AxisTicks
           tickValues={props.yAxisTickValues}
-          tickFormatting={props.tickFormatting}
+          tickFormatting={props.yAxisTickFormatting}
+          rawDates={props.yIsRawDates}
           tickArguments={tickArguments}
           tickStroke={props.yTickStrokeColor}
           tickTextStroke={props.yTickTextStroke}
@@ -87,6 +88,7 @@ module.exports = React.createClass({
           margins={props.margins}
           height={props.height}
           width={props.width}
+          labelColor={props.yLabelColor}
         />
       </g>
     );

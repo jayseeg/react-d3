@@ -8,26 +8,30 @@ module.exports = React.createClass({
   displayName: 'AxisTick',
 
   propTypes: {
-    scale: React.PropTypes.func.isRequired,
-    orient: React.PropTypes.oneOf(['top','bottom','left','right']).isRequired,
-    tickArguments : React.PropTypes.array,
-    tickValues: React.PropTypes.array,
-    innerTickSize: React.PropTypes.number,
-    outerTickSize: React.PropTypes.number,
-    tickPadding: React.PropTypes.number,
-    tickFormat: React.PropTypes.func,
-    tickStroke: React.PropTypes.string,
-    displayText: React.PropTypes.bool
+    scale          : React.PropTypes.func.isRequired,
+    orient         : React.PropTypes.oneOf(['top','bottom','left','right']).isRequired,
+    tickArguments  : React.PropTypes.array,
+    tickValues     : React.PropTypes.array,
+    innerTickSize  : React.PropTypes.number,
+    outerTickSize  : React.PropTypes.number,
+    tickPadding    : React.PropTypes.number,
+    tickFormat     : React.PropTypes.func,
+    tickStroke     : React.PropTypes.string,
+    tickTextStroke : React.PropTypes.string,
+    displayText    : React.PropTypes.bool,
+    rawDates       : React.PropTypes.bool
   },
   getDefaultProps() {
     return {
       innerTickSize: 6,
       outerTickSize: 6,
       tickStroke: '#000',
+      tickTextStroke: '#000',
       tickPadding: 3,
       tickArguments: [10],
       tickValues: null,
-      displayText: true
+      displayText: true,
+      rawDates: false,
     };
   },
 
@@ -55,7 +59,12 @@ module.exports = React.createClass({
       ticks = scale.domain();
     }
 
-    if (props.tickFormatting) {
+    if (props.tickFormatting && props.rawDates) {
+        tickFormat = function( rawDate ) {
+          var date = new Date(rawDate);
+          return props.tickFormatting(date);
+        }
+    } else if (props.tickFormatting) {
         tickFormat = props.tickFormatting;
     } else if (scale.tickFormat) {
         tickFormat = scale.tickFormat.apply(scale, props.tickArguments);
@@ -128,6 +137,7 @@ module.exports = React.createClass({
                 dy={dy} x={x1} y={y1}
                 style={{stroke:props.tickTextStroke, fill:props.tickTextStroke, display:displayText}}
                 textAnchor={textAnchor}
+                fill={props.tickTextStroke}
               >
                 {tickFormat(tick)}
               </text>
