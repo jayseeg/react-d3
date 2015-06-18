@@ -194,7 +194,7 @@ gulp.task('serve', function() {
     ui: {
       port: 9080
     },
-    port: 4000,
+    port: 4004,
     open: false
   });
 });
