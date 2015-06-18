@@ -66,7 +66,7 @@ module.exports = React.createClass({
         />
         <AxisTicks
           tickValues={props.xAxisTickValues}
-          tickFormatting={props.xAxisTickFormatting}
+          tickFormatting={props.tickFormatting}
           rawDates={props.xIsRawDates}
           tickArguments={tickArguments}
           tickStroke={props.xTickStrokeColor}
