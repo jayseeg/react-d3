@@ -35,7 +35,7 @@ module.exports = React.createClass({
 
     var props = this.props;
 
-    var values = props.data.map( (item) => item.value );
+    var values = props.data.map( (item) => item.values );
 
     var labels = props.data.map( (item) => item.label );
 
@@ -44,10 +44,13 @@ module.exports = React.createClass({
     var sideMargins = margins.left + margins.right;
     var topBottomMargins = margins.top + margins.bottom;
 
-    var minValue = Math.min(d3.min(values), 0);
+    var flattenedValues = []
+    flattenedValues = flattenedValues.concat.apply(flattenedValues, values)
+
+    var minValue = Math.min(d3.min(flattenedValues), 0);
 
     var yScale = d3.scale.linear()
-      .domain([minValue, d3.max(values)])
+      .domain([minValue, d3.max(flattenedValues)])
       .range([props.height - topBottomMargins, 0]);
 
     var xScale = d3.scale.ordinal()
@@ -56,14 +59,22 @@ module.exports = React.createClass({
 
     var trans = `translate(${ margins.left },${ margins.top })`;
 
+    // if any of the value arrays have a length over 1, then it's stacked
+    var isStacked = values.reduce((mem, valueArray) => {
+      return valueArray.length > mem ? valueArray.length : mem
+    }, 0) > 1
+      ? true
+      : false
+
     // setting here to make sure length of colors is available
     var colorAccessor = (d, idx) => idx % props.colors.length;
-    
+
     return (
       <Chart width={props.width} height={props.height} title={props.title}>
         <g transform={trans} className='rd3-barchart'>
           <DataSeries
-            values={values}
+isStacked={isStacked}
+values={values}
             labels={labels}
             yScale={yScale}
             xScale={yScale}
@@ -77,7 +88,7 @@ module.exports = React.createClass({
           />
           <YAxis
             yAxisClassName='rd3-barchart-yaxis'
-            yAxisTickValues={props.yAxisTickValues}
+yAxisTickValues={props.yAxisTickValues}
             yAxisLabel={props.yAxisLabel}
             yAxisLabelOffset={props.yAxisLabelOffset}
             yScale={yScale}

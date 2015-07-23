@@ -24,18 +24,32 @@ module.exports = React.createClass({
     };
   },
 
-  render() {
-
+  renderBars(point, idx) {
     var props = this.props;
+
+var fill = props.colors[idx]
+// var fill = shade(this.state.fill, (idx * 0.1))
 
     return (
       <Bar
         {...props}
-        fill={this.state.fill}
+        y={props.yScale(Math.max(0, point))}
+        height={Math.abs(props.yScale(0) - props.yScale(point))}
+        fill={fill}
         handleMouseOver={props.hoverAnimation ? this._animateBar : null}
         handleMouseLeave={props.hoverAnimation ? this._restoreBar : null}
       />
     );
+  },
+
+  render() {
+    var props = this.props;
+
+    var bars = props.points
+      .sort((pointA, pointB) => pointA < pointB)
+      .map(this.renderBars);
+
+    return <g>{bars}</g>;
   },
 
   _animateBar() {
