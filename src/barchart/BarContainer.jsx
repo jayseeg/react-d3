@@ -27,8 +27,7 @@ module.exports = React.createClass({
   renderBars(point, idx) {
     var props = this.props;
 
-var fill = props.colors[idx]
-// var fill = shade(this.state.fill, (idx * 0.1))
+    var fill = props.colors[idx]
 
     return (
       <Bar

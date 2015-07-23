@@ -69,12 +69,26 @@ module.exports = React.createClass({
     // setting here to make sure length of colors is available
     var colorAccessor = (d, idx) => idx % props.colors.length;
 
+    var stackedBarLabelObjects = [];
+    if (props.stackedBarLabels && props.stackedBarLabels.length) {
+      stackedBarLabelObjects = props.stackedBarLabels.map(label => ({name: label}))
+    }
+
     return (
-      <Chart width={props.width} height={props.height} title={props.title}>
+      <Chart
+        width={props.width}
+        height={props.height}
+        title={props.title}
+        legend={props.legend}
+        legendMargins={props.legendMargins}
+        data={stackedBarLabelObjects}
+        colors={props.colors}
+        verticalLegend={false}
+      >
         <g transform={trans} className='rd3-barchart'>
           <DataSeries
-isStacked={isStacked}
-values={values}
+            isStacked={isStacked}
+            values={values}
             labels={labels}
             yScale={yScale}
             xScale={yScale}
@@ -88,7 +102,7 @@ values={values}
           />
           <YAxis
             yAxisClassName='rd3-barchart-yaxis'
-yAxisTickValues={props.yAxisTickValues}
+            yAxisTickValues={props.yAxisTickValues}
             yAxisLabel={props.yAxisLabel}
             yAxisLabelOffset={props.yAxisLabelOffset}
             yScale={yScale}

@@ -116,6 +116,9 @@ var Demos = React.createClass({
             ],
           },
         ];
+    
+    var stackedBarLabels = ['First', 'Second', 'Third']
+
     var pieData = [{label: "Margarita", value: 20.0, href: "http://www.google.com"}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }, {label: "Tom", value: 25.0 }, {label: "Timmy", value: 25.0 }, {label: "Timothy", value: 25.0 }, {label: "Tim Tebow", value: 25.0 }, {label: "Timster", value: 25.0 }, {label: "Timminy", value: 25.0 }];
 
     // Custom curried prepend function to pass in
@@ -363,16 +366,32 @@ var Demos = React.createClass({
         </div>
         <div className="row">
           <div className="col-md-6">
-            <BarChart data={barData} width={500} height={300} colors={colorArray} title="Bar Chart" yAxisLabel="Label" xAxisLabel="Value"/>
+            <BarChart
+                data={barData}
+                width={500}
+                height={300}
+                colors={colorArray}
+                title="Bar Chart"
+                yAxisLabel="Label"
+                xAxisLabel="Value"
+                stackedBarLabels={stackedBarLabels}
+                legend={true}
+                legendMargins={{
+                  top:0,
+                  right:2,
+                  bottom:10,
+                  left:0,
+                }}
+                verticalLegend={false}/>
           </div>
           <div className="col-md-6">
             <pre ref='block'>
               <code className='js'>
               {`var barData = [
-  {label: 'A', value: 5},
-  {label: 'B', value: 6},
+  {label: 'A', values: [5, 9, 18]},
+  {label: 'B', values: [6, 10, 19]},
   ...
-  {label: 'F', value: 7}
+  {label: 'F', values: [7, 11, 20]}
 ];`}
               </code>
             </pre>
@@ -386,6 +405,10 @@ var Demos = React.createClass({
   title='Bar Chart'
   yAxisLabel='Label'
   xAxisLabel='Value'
+  stackedBarLabels={stackedBarLabels}
+  legend={true}
+  legendMargins={{top: 0, right: 2, bottom: 10, left: 0}}
+  verticalLegend={false}
 />`}
               </code>
             </pre>
