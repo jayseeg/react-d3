@@ -30,7 +30,7 @@ module.exports = React.createClass({
     };
   },
 
-  render() {
+  renderBarContainers(points, idx) {
 
     var props = this.props;
 
@@ -38,23 +38,34 @@ module.exports = React.createClass({
       .domain(d3.range(props.values.length))
       .rangeRoundBands([0, props.width], props.padding);
 
+    return (
+      <BarContainer
+        {...props}
+        points={points}
+        width={xScale.rangeBand()}
+        x={xScale(idx)}
+        availableHeight={props.height}
+        fill={props.colors[props.colorAccessor(props.data[idx], idx)]}
+        key={idx}
+        hoverAnimation={props.hoverAnimation}
+      />
+    )
+  },
+
+  render() {
+
+    var props = this.props;
+
     // we want an array
     var colors = typeof props.colors === 'function' ? props.colors() : props.colors;
 
-    var bars = props.values.map((point, idx) => {
-      return (
-        <BarContainer
-          height={Math.abs(props.yScale(0) - props.yScale(point))}
-          width={xScale.rangeBand()}
-          x={xScale(idx)}
-          y={props.yScale(Math.max(0, point))}
-          availableHeight={props.height}
-          fill={props.colors[props.colorAccessor(props.data[idx], idx)]}
-          key={idx}
-          hoverAnimation={props.hoverAnimation}
-        />
-      );
-    });
+    var bars;
+    if (props.isStacked) {
+      bars = props.values.map(this.renderBarContainers);
+    } else {
+      bars = props.values.map(this.renderBarContainers);
+    }
+    
 
     return (
       <g>{bars}</g>

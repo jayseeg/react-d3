@@ -66,7 +66,56 @@ var Demos = React.createClass({
       }
     ];
 
-    var barData = [{label: 'AA', value: 5}, {label: 'B', value: 6}, {label: 'C', value: 2}, {label: 'D', value: 11}, {label: 'E', value: 2}, {label: 'F', value: 7}];
+    var barData = [
+          {
+            label: 'AA',
+            values: [
+              5,
+              9,
+              16,
+            ],
+          },
+          {
+            label: 'B',
+            values: [
+              6,
+              10,
+              17,
+            ],
+          },
+          {
+            label: 'C',
+            values: [
+              2,
+              6,
+              13,
+            ],
+          },
+          {
+            label: 'D',
+            values: [
+              11,
+              5,
+              12,
+            ],
+          },
+          {
+            label: 'E',
+            values: [
+              2,
+              6,
+              13,
+            ],
+          },
+          {
+            label: 'F',
+            values: [
+              7,
+              11,
+              18,
+            ],
+          },
+        ];
     var pieData = [{label: "Margarita", value: 20.0, href: "http://www.google.com"}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }, {label: "Tom", value: 25.0 }, {label: "Timmy", value: 25.0 }, {label: "Timothy", value: 25.0 }, {label: "Tim Tebow", value: 25.0 }, {label: "Timster", value: 25.0 }, {label: "Timminy", value: 25.0 }];
 
     // Custom curried prepend function to pass in
