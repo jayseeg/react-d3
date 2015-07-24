@@ -76,51 +76,35 @@ module.exports = React.createClass({
 
     return (
       <Chart
-        width={props.width}
-        height={props.height}
-        title={props.title}
-        legend={props.legend}
-        legendMargins={props.legendMargins}
+        {...props}
         data={stackedBarLabelObjects}
-        colors={props.colors}
         verticalLegend={false}
       >
         <g transform={trans} className='rd3-barchart'>
+          <YAxis
+            {...props}
+            yAxisClassName='rd3-barchart-yaxis'
+            yScale={yScale}
+            margins={margins}
+            width={props.width - sideMargins}
+            height={props.height - topBottomMargins}
+          />
+          <XAxis
+            {...props}
+            xAxisClassName='rd3-barchart-xaxis'
+            xScale={xScale}
+            margins={margins}
+            width={props.width - sideMargins}
+            height={props.height - topBottomMargins}
+          />
           <DataSeries
+            {...props}
             isStacked={isStacked}
             values={values}
             labels={labels}
             yScale={yScale}
             xScale={yScale}
             margins={margins}
-            data={props.data}
-            width={props.width - sideMargins}
-            height={props.height - topBottomMargins}
-            colors={props.colors}
-            colorAccessor={props.colorAccessor}
-            hoverAnimation={props.hoverAnimation}
-          />
-          <YAxis
-            yAxisClassName='rd3-barchart-yaxis'
-            yAxisTickValues={props.yAxisTickValues}
-            yAxisLabel={props.yAxisLabel}
-            yAxisLabelOffset={props.yAxisLabelOffset}
-            yScale={yScale}
-            margins={margins}
-            yAxisTickCount={props.yAxisTickCount}
-            tickFormatting={props.yAxisFormatter}
-            width={props.width - sideMargins}
-            height={props.height - topBottomMargins}
-          />
-          <XAxis
-            xAxisClassName='rd3-barchart-xaxis'
-            xAxisTickValues={props.xAxisTickValues}
-            xAxisLabel={props.xAxisLabel}
-            xAxisLabelOffset={props.xAxisLabelOffset}
-            xScale={xScale}
-            data={props.data}
-            margins={margins}
-            tickFormatting={props.xAxisFormatter}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
           />

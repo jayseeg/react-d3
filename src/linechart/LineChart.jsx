@@ -107,6 +107,7 @@ module.exports = React.createClass({
 
       return (
         <DataSeries
+          {...props}
           key={idx}
           structure={structure}
           xScale={scales.xScale}
@@ -116,29 +117,15 @@ module.exports = React.createClass({
           width={innerWidth}
           height={innerHeight}
           fill={fill}
-          circleRadius={props.circleRadius}
-          xAccessor={props.xAccessor}
-          yAccessor={props.yAccessor}
           interpolationType={interpolationType}
-          displayDataPoints={props.displayDataPoints}
-          lineStrokeWidth={props.lineStrokeWidth}
         />
       );
     });
 
     return (
       <Chart
-        viewBox={props.viewBox}
-        legend={props.legend}
-        data={data}
-        chartMargins={props.chartMargins}
-        legendMargins={props.legendMargins}
-        colors={props.colors}
-        colorAccessor={props.colorAccessor}
-        width={props.width}
-        height={props.height}
-        title={props.title}
         {...props}
+        data={data}
       >
         <g transform={trans} className={props.className}>
           {props.hoverAnimation ? <Voronoi
@@ -150,52 +137,22 @@ module.exports = React.createClass({
             height={innerHeight}
           /> : <g/> }
           <YAxis
+            {...props}
             yAxisClassName='rd3-linechart-yaxis'
             tickFormatting={props.yAxisFormatter}
-            yAxisTickValues={props.yAxisTickValues}
-            yAxisLabel={props.yAxisLabel}
-            yAxisLabelOffset={props.yAxisLabelOffset}
-            yAxisTickCount={props.yAxisTickCount}
-            yAxisStrokeColor={props.yAxisStrokeColor}
-            yAxisStrokeWidth={props.yAxisStrokeWidth}
-            yOuterTickSize={props.yOuterTickSize}
-            yInnerTickSize={props.yInnerTickSize}
-            yIsRawDates={props.yIsRawDates}
             yScale={scales.yScale}
-            yOrient={props.yOrient}
-            yTickStrokeColor={props.yTickStrokeColor}
-            yTickTextStroke={props.yTickTextStroke}
-            margins={props.margins}
             width={innerWidth}
             height={innerHeight}
             stroke={props.axesColor}
-            yDisplayTickText={props.yDisplayTickText}
-            yAxisTickInterval={props.yAxisTickInterval}
-            yLabelColor={props.yLabelColor}
           />
           <XAxis
+            {...props}
             xAxisClassName='rd3-linechart-xaxis'
             tickFormatting={props.xAxisFormatter}
-            xAxisTickValues={props.xAxisTickValues}
-            xAxisLabel={props.xAxisLabel}
-            xAxisLabelOffset={props.xAxisLabelOffset}
-            xAxisTickCount={props.xAxisTickCount}
-            xAxisStrokeColor={props.xAxisStrokeColor}
-            xAxisStrokeWidth={props.xAxisStrokeWidth}
-            xOuterTickSize={props.xOuterTickSize}
-            xInnerTickSize={props.xInnerTickSize}
-            xIsRawDates={props.xIsRawDates}
             xScale={scales.xScale}
-            xOrient={props.xOrient}
-            xTickStrokeColor={props.xTickStrokeColor}
-            xTickTextStroke={props.xTickTextStroke}
-            margins={props.margins}
             width={innerWidth}
             height={innerHeight}
             stroke={props.axesColor}
-            xDisplayTickText={props.xDisplayTickText}
-            xAxisTickInterval={props.xAxisTickInterval}
-            xLabelColor={props.xLabelColor}
           />
           {dataSeriesArray}
         </g>
