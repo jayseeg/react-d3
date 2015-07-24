@@ -385,36 +385,36 @@ var Demos = React.createClass({
         <div className="row">
           <div className="col-md-6">
             <BarChart
-                data={barData}
-                width={500}
-                height={300}
-                margins={{top: 30, right: 2, bottom: 40, left: 20}}
-                colors={colorArray}
-                title="Bar Chart"
-                yAxisLabel=""
-                xAxisLabel=""
-                stackedBarLabels={stackedBarLabels}
-                legend={true}
-                legendMargins={{
-                  top:0,
-                  right:2,
-                  bottom:10,
-                  left:0,
-                }}
-                verticalLegend={false}
-                yTickStrokeColor='lightgray'
-                yTickTextStroke='lightgray'
-                yAxisTickCount={5}
-                yDomain={[0,100]}
-                yAxisLabelOffset={10}
-                lineStrokeWidth={3}
-                yAxisStrokeWidth={0}
-                yOrient='leftFull'
-                xInnerTickSize={6}
-                xAxisStrokeWidth={3}
-                xAxisStrokeColor='lightgray'
-                xOuterTickSize={0}
-              />
+              data={barData}
+              width={500}
+              height={300}
+              margins={{top: 30, right: 2, bottom: 40, left: 20}}
+              colors={colorArray}
+              title="Bar Chart"
+              yAxisLabel=""
+              xAxisLabel=""
+              stackedBarLabels={stackedBarLabels}
+              legend={true}
+              legendMargins={{
+                top:0,
+                right:2,
+                bottom:10,
+                left:0,
+              }}
+              verticalLegend={false}
+              yTickStrokeColor='lightgray'
+              yTickTextStroke='lightgray'
+              yAxisTickCount={5}
+              yDomain={[0,100]}
+              yAxisLabelOffset={10}
+              lineStrokeWidth={3}
+              yAxisStrokeWidth={0}
+              yOrient='leftFull'
+              xInnerTickSize={6}
+              xAxisStrokeWidth={3}
+              xAxisStrokeColor='lightgray'
+              xOuterTickSize={0}
+            />
           </div>
           <div className="col-md-6">
             <pre ref='block'>

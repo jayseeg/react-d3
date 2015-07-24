@@ -3,6 +3,7 @@
 var React = require('react');
 var d3 = require('d3');
 var DataSeries = require('./DataSeries');
+var utils = require('../utils');
 
 var { Chart, XAxis, YAxis } = require('../common');
 var { CartesianChartPropsMixin } = require('../mixins');
@@ -41,11 +42,36 @@ module.exports = React.createClass({
 
     var margins = props.margins;
 
+    // Calculate inner chart dimensions
+    var innerWidth, innerHeight;
+
+    innerWidth = props.width - props.margins.left - props.margins.right;
+    innerHeight = props.height - props.margins.top - props.margins.bottom;
+
+    if (props.legend && props.legendFloat) {
+      innerWidth = innerWidth - props.legendOffset;
+    }
+
     var sideMargins = margins.left + margins.right;
     var topBottomMargins = margins.top + margins.bottom;
 
     var flattenedValues = []
-    flattenedValues = flattenedValues.concat.apply(flattenedValues, values)
+    var flattenedValues = utils.flattenData(props.data, props.xAccessor, props.yAccessor);
+
+    var xValues = flattenedValues.xValues,
+        yValues = flattenedValues.yValues;
+
+    var scales = utils.calculateScales(innerWidth, innerHeight, {
+      xValues: xValues,
+      isRawDates: props.xIsRawDates
+    },
+    {
+      yValues: yValues,
+      isRawDates: props.yIsRawDates
+    });
+
+    scales.yScale = props.yDomain ? scales.yScale.domain(props.yDomain) : scales.yScale;
+    scales.xScale = props.xDomain ? scales.xScale.domain(props.xDomain) : scales.xScale;
 
     var minValue = Math.min(d3.min(flattenedValues), 0);
 
@@ -84,7 +110,7 @@ module.exports = React.createClass({
           <YAxis
             {...props}
             yAxisClassName='rd3-barchart-yaxis'
-            yScale={yScale}
+            yScale={scales.yScale}
             margins={margins}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
@@ -92,7 +118,7 @@ module.exports = React.createClass({
           <XAxis
             {...props}
             xAxisClassName='rd3-barchart-xaxis'
-            xScale={xScale}
+            xScale={scales.xScale}
             margins={margins}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
@@ -102,8 +128,8 @@ module.exports = React.createClass({
             isStacked={isStacked}
             values={values}
             labels={labels}
-            yScale={yScale}
-            xScale={yScale}
+            yScale={scales.yScale}
+            xScale={scales.yScale}
             margins={margins}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
