@@ -115,6 +115,7 @@ module.exports = React.createClass({
             margins={margins}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
+            tickFormatting={props.yAxisFormatter}
           />
           <XAxis
             {...props}
@@ -124,6 +125,7 @@ module.exports = React.createClass({
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
             xAxisTickValues={labels}
+            tickFormatting={props.xAxisFormatter}
           />
           <DataSeries
             {...props}
