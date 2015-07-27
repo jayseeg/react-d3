@@ -141,7 +141,6 @@ exports.flattenData = (data, xAccessor, yAccessor) => {
   };
 };
 
-
 exports.shade = (hex, percent) => {
 
   var R, G, B, red, green, blue, number;
