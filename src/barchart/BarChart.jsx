@@ -62,7 +62,7 @@ module.exports = React.createClass({
         yValues = flattenedValues.yValues;
 
     var scales = utils.calculateScales(innerWidth, innerHeight, {
-      xValues: xValues,
+      xValues: labels,
       isRawDates: props.xIsRawDates
     },
     {
@@ -82,6 +82,7 @@ module.exports = React.createClass({
     var xScale = d3.scale.ordinal()
         .domain(labels)
         .rangeRoundBands([0, props.width - sideMargins], 0.1);
+
 
     var trans = `translate(${ margins.left },${ margins.top })`;
 
@@ -118,10 +119,11 @@ module.exports = React.createClass({
           <XAxis
             {...props}
             xAxisClassName='rd3-barchart-xaxis'
-            xScale={scales.xScale}
+            xScale={xScale}
             margins={margins}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
+            xAxisTickValues={labels}
           />
           <DataSeries
             {...props}
