@@ -32,11 +32,12 @@ module.exports = React.createClass({
     return (
       <Bar
         {...props}
+        id={idx}
         y={props.yScale(Math.max(0, point))}
         height={Math.abs(props.yScale(0) - props.yScale(point))}
         fill={fill}
-        handleMouseOver={props.hoverAnimation ? this._animateBar : null}
-        handleMouseLeave={props.hoverAnimation ? this._restoreBar : null}
+        handleMouseEnter={props.hoverAnimation ? props.handleHover : null}
+        handleMouseLeave={props.hoverAnimation ? props.handleHoverOff : null}
       />
     );
   },

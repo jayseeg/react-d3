@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react');
+var SVGAnchor = require('../common/SVGAnchor.jsx')
+var shade = require('../utils').shade;
 
 module.exports = React.createClass({
 
@@ -21,14 +23,16 @@ module.exports = React.createClass({
   },
 
   render() {
+    var props = this.props;
+
     return (
-      <rect
-        className='rd3-barchart-bar'
-        {...this.props}
-        fill={this.props.fill}
-        onMouseOver={this.props.handleMouseOver}
-        onMouseLeave={this.props.handleMouseLeave}
-      />
+      <SVGAnchor {...props}>
+        <rect
+          className='rd3-barchart-bar'
+          {...this.props}
+          fill={props.hoverData[props.id].isHovered ? shade(this.props.fill, 0.2) : props.fill}
+        />
+      </SVGAnchor>
     );
   }
 });

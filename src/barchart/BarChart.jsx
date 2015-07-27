@@ -32,9 +32,48 @@ module.exports = React.createClass({
     };
   },
 
+  getInitialState: function() {
+    var props = this.props;
+
+    var hoverArray = props.data
+    if (props.stackedBarLabels && props.stackedBarLabels.length) {
+      var hoverArray = props.stackedBarLabels
+
+    }
+    var hoverData = hoverArray.map(function(datum, idx) {
+      return {
+        isHovered: false
+      };
+    });
+
+    return {
+      hoverData: hoverData
+    }
+  },
+
+  handleHover: function( idx ) {
+    var state = this.state;
+    var hoverData = state.hoverData.map(function(datum, i) {
+      if (i === idx) return {isHovered: true};
+      return {isHovered: false};
+    });
+
+    this.setState({hoverData: hoverData});
+  },
+
+  handleHoverOff: function( idx ) {
+    var state = this.state;
+    var hoverData = state.hoverData.map(function(datum) {
+      return {isHovered: false};
+    });
+
+    this.setState({hoverData: hoverData});
+  },
+
   render() {
 
     var props = this.props;
+    var state = this.state;
 
     var values = props.data.map( (item) => item.values );
 
@@ -106,6 +145,9 @@ module.exports = React.createClass({
         {...props}
         data={stackedBarLabelObjects}
         verticalLegend={false}
+        hoverData={state.hoverData}
+        handleHover={this.handleHover}
+        handleHoverOff={this.handleHoverOff}
       >
         <g transform={trans} className='rd3-barchart'>
           <YAxis
@@ -137,6 +179,9 @@ module.exports = React.createClass({
             margins={margins}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
+            hoverData={state.hoverData}
+            handleHover={this.handleHover}
+            handleHoverOff={this.handleHoverOff}
           />
         </g>
       </Chart>
