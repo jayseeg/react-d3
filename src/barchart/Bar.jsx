@@ -25,8 +25,24 @@ module.exports = React.createClass({
   render() {
     var props = this.props;
 
+    var topPercent = null;
+
+    if (props.topPercent) {
+      topPercent = (
+        <text
+          x={props.xScale(props.containerIdx) + ( props.xScale.rangeBand() / 2 )}
+          y={props.yScale(props.points[0]) - 5}
+          style={props.topPercentStyles}
+          textAnchor='middle'
+        >
+          {`${props.points[0]}%`}
+        </text>
+      )
+    }
+
     return (
       <SVGAnchor {...props}>
+        {topPercent}
         <rect
           className='rd3-barchart-bar'
           {...this.props}

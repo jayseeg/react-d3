@@ -34,9 +34,12 @@ module.exports = React.createClass({
 
     var props = this.props;
 
+    var bars = props.data.map((datum, idx) => idx)
+
     var xScale = d3.scale.ordinal()
-      .domain(d3.range(props.values.length))
+      .domain(bars)
       .rangeRoundBands([0, props.width], props.padding);
+
 
     return (
       <BarContainer
@@ -48,6 +51,8 @@ module.exports = React.createClass({
         fill={props.colors[props.colorAccessor(props.data[idx], idx)]}
         key={idx}
         hoverAnimation={props.hoverAnimation}
+        xScale={xScale}
+        containerIdx={idx}
       />
     )
   },
