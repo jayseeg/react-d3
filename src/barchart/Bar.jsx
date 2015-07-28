@@ -40,8 +40,16 @@ module.exports = React.createClass({
       )
     }
 
+    var href = null
+    if (props.data[props.containerIdx].href) {
+      href = props.data[props.containerIdx].href
+    }
+
     return (
-      <SVGAnchor {...props}>
+      <SVGAnchor
+        href={href}
+        {...props}
+      >
         {topPercent}
         <rect
           className='rd3-barchart-bar'
