@@ -84,6 +84,8 @@ module.exports = React.createClass({
 
     props.colors.domain(seriesNames);
 
+    if (props.colorsArray && props.colorsArray.length) props.colors.range(props.colorsArray)
+
     var stack = d3.layout.stack()
       .x(props.xAccessor)
       .y(props.yAccessor)
@@ -113,45 +115,25 @@ module.exports = React.createClass({
 
     return (
       <Chart
-        viewBox={props.viewBox}
-        legend={props.legend}
+        {...props}
         data={data}
-        margins={props.margins}
-        colors={props.colors}
-        colorAccessor={props.colorAccessor}
-        width={props.width}
-        height={props.height}
-        title={props.title}
       >
         <g transform={trans} className={props.className}>
           {dataSeries}
           <XAxis
             xAxisClassName='rd3-areachart-xaxis'
             xScale={xScale}
-            xAxisTickValues={props.xAxisTickValues}
-            xAxisTickInterval={props.xAxisTickInterval}
-            xAxisTickCount={props.xAxisTickCount}
-            xAxisLabel={props.xAxisLabel}
-            xAxisLabelOffset={props.xAxisLabelOffset}
             tickFormatting={props.xAxisFormatter}
-            xOrient={props.xOrient}
-            margins={props.margins}
+            {...props}
             width={innerWidth}
             height={innerHeight}
           />
           <YAxis
             yAxisClassName='rd3-areachart-yaxis'
             yScale={yScale}
-            yAxisTickValues={props.yAxisTickValues}
-            yAxisTickInterval={props.yAxisTickInterval}
-            yAxisTickCount={props.yAxisTickCount}
-            yAxisLabel={props.yAxisLabel}
-            yAxisLabelOffset={props.yAxisLabelOffset}
             tickFormatting={props.yAxisFormatter}
-            yOrient={props.yOrient}
-            margins={props.margins}
             width={innerWidth}
-            height={props.height}
+            {...props}
           />
         </g>
       </Chart>
