@@ -15,10 +15,7 @@ module.exports = React.createClass({
     margins:       React.PropTypes.object,
     legendMargins: React.PropTypes.object,
     text:          React.PropTypes.string,
-    colors:        React.PropTypes.oneOfType([
-                     React.PropTypes.array,
-                     React.PropTypes.func
-                   ]),
+    colors:        React.PropTypes.func,
     colorAccessor: React.PropTypes.func,
     legendKey:     React.PropTypes.string,
     prepender:     React.PropTypes.func,
@@ -41,17 +38,6 @@ module.exports = React.createClass({
     };
   },
 
-  // handleHover: function( idx ) {
-  //   this.props.handleHover( idx )
-
-  //           handleHover={this.handleHover}
-  //           handleHoverOff={this.handleHoverOff}
-  // },
-
-  // handleHoverOff: function( idx ) {
-  //   this.setState({hoverData: hoverData});
-  // },
-
   render: function() {
     var props = this.props;
 
@@ -71,17 +57,9 @@ module.exports = React.createClass({
     }
 
     props.data.forEach( (series, idx) => {
+      if (props.colorsArray && props.colorsArray.length) props.colors.range(props.colorsArray)
 
-      // setting here to make sure length of colors is available
-      var colorAccessor = (d, idx) => idx % props.colors.length;
-
-      // making fill color available off of an array
-      var fill;
-      if (typeof props.colors === 'function') {
-        fill = props.colors(colorAccessor(series, idx));
-      } else {
-        fill = props.colors[colorAccessor(props.data[idx], idx)];
-      }
+      var fill = props.colors(props.colorAccessor(series, idx));
 
       var verticalItemStyle = {
         color: fill

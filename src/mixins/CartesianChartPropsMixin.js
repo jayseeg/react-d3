@@ -7,10 +7,7 @@ module.exports =  {
 
   propTypes: {
     axesColor:         React.PropTypes.string,
-    colors:            React.PropTypes.oneOfType([
-                         React.PropTypes.array,
-                         React.PropTypes.func
-                       ]),
+    colors:            React.PropTypes.func,
     colorAccessor:     React.PropTypes.func,
     data:              React.PropTypes.oneOfType([
                          React.PropTypes.array,

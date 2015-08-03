@@ -16,10 +16,7 @@ module.exports = React.createClass({
     transform         : React.PropTypes.string,
     innerRadius       : React.PropTypes.number,
     radius            : React.PropTypes.number,
-    colors            : React.PropTypes.oneOfType([
-                         React.PropTypes.array,
-                         React.PropTypes.func
-                       ]),
+    colors            : React.PropTypes.func,
     colorAccessor     : React.PropTypes.func,
     showInnerLabels   : React.PropTypes.bool,
     showOuterLabels   : React.PropTypes.bool,
@@ -44,8 +41,7 @@ module.exports = React.createClass({
 
     var arcData = pie(props.values);
 
-    // we want an array
-    var colors = typeof props.colors === 'function' ? props.colors() : props.colors;
+    if (props.colorsArray && props.colorsArray.length) props.colors.range(props.colorsArray)
 
     var arcs = arcData.map((arc, idx) => {
       return (
@@ -56,7 +52,7 @@ module.exports = React.createClass({
           startAngle={arc.startAngle}
           endAngle={arc.endAngle}
           outerRadius={props.radius}
-          fill={props.colors[props.colorAccessor(props.data[idx], idx)]}
+          fill={props.colors(props.colorAccessor(arc, idx))}
           value={props.values[idx]}
           label={props.labels[idx]}
           href={props.data[idx].href}

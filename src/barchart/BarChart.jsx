@@ -28,7 +28,7 @@ module.exports = React.createClass({
     return {
       yAxisTickCount: 4,
       margins: {top: 10, right: 20, bottom: 40, left: 45},
-      hoverAnimation: true
+      hoverAnimation: true,
     };
   },
 
@@ -119,8 +119,8 @@ module.exports = React.createClass({
       .range([props.height - topBottomMargins, 0]);
 
     var xScale = d3.scale.ordinal()
-        .domain(labels)
-        .rangeRoundBands([0, props.width - sideMargins], 0.1);
+      .domain(labels)
+      .rangeRoundBands([0, props.width - sideMargins], 0.1);
 
 
     var trans = `translate(${ margins.left },${ margins.top })`;
@@ -132,8 +132,8 @@ module.exports = React.createClass({
       ? true
       : false
 
-    // setting here to make sure length of colors is available
-    var colorAccessor = (d, idx) => idx % props.colors.length;
+// setting here to make sure length of colors is available
+// var colorAccessor = (d, idx) => idx % props.colors.length;
 
     var stackedBarLabelObjects = [];
     if (props.stackedBarLabels && props.stackedBarLabels.length) {

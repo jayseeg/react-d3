@@ -16,10 +16,7 @@ module.exports = React.createClass({
     labelTextFill:      React.PropTypes.string,
     valueTextFill:      React.PropTypes.string,
     valueTextFormatter: React.PropTypes.func,
-    colors:             React.PropTypes.oneOfType([
-                          React.PropTypes.array,
-                          React.PropTypes.func
-                        ]),
+    colors:             React.PropTypes.func,
     colorAccessor:      React.PropTypes.func,
     title:              React.PropTypes.string,
     showInnerLabels:    React.PropTypes.bool,
@@ -35,6 +32,7 @@ module.exports = React.createClass({
       data:               [],
       title:              '',
       colors:             d3.scale.category20c(),
+      colorAccessor:      (d, idx) => idx,
       valueTextFormatter: (val) => `${ val }%`,
       hoverAnimation:     true
     };
@@ -79,9 +77,6 @@ module.exports = React.createClass({
     var values = props.data.map( (item) => item.value );
     var labels = props.data.map( (item) => item.label );
 
-    // setting here to make sure length of colors is available
-    var colorAccessor = (d, idx) => idx % props.colors.length;
-
     var width = (props.width - props.gutterWidth) / 2;
 
     var radius = props.height > width ? width / 2 : props.height / 2;
@@ -104,7 +99,7 @@ module.exports = React.createClass({
             {...props}
             values={values}
             labels={labels}
-            colorAccessor={colorAccessor}
+            colorAccessor={props.colorAccessor}
             transform={transform}
             width={width}
             containerWidth={props.width}
