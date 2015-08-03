@@ -9,7 +9,7 @@ module.exports = React.createClass({
 
   propTypes: {
     scale          : React.PropTypes.func.isRequired,
-    orient         : React.PropTypes.oneOf(['top','bottom','left','right']).isRequired,
+    orient         : React.PropTypes.oneOf(['top','bottom','left','right', 'leftFull']).isRequired,
     tickArguments  : React.PropTypes.array,
     tickValues     : React.PropTypes.array,
     innerTickSize  : React.PropTypes.number,

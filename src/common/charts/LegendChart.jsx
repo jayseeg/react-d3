@@ -8,10 +8,7 @@ module.exports = React.createClass({
   displayName: 'LegendChart',
 
   propTypes: {
-    colors:         React.PropTypes.oneOfType([
-                      React.PropTypes.array,
-                      React.PropTypes.func
-                    ]),
+    colors:         React.PropTypes.func,
     colorAccessor:  React.PropTypes.func,
     title:          React.PropTypes.node,
     viewBox:        React.PropTypes.string,

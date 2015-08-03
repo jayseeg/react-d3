@@ -15,6 +15,7 @@ module.exports = React.createClass({
       <Bar
         {...props}
         id={idx}
+        key={idx}
         y={props.yScale(Math.max(0, point))}
         height={Math.abs(props.yScale(0) - props.yScale(point))}
         fill={fill}

@@ -13,7 +13,7 @@ module.exports = React.createClass({
   propTypes: {
     yAxisClassName: React.PropTypes.string,
     yAxisTickValues: React.PropTypes.array,
-    yOrient: React.PropTypes.oneOf(['left', 'right', 'full']),
+    yOrient: React.PropTypes.oneOf(['left', 'right', 'full', 'leftFull']),
     yScale: React.PropTypes.func.isRequired,
     fill: React.PropTypes.string,
     stroke: React.PropTypes.string,
@@ -74,10 +74,10 @@ module.exports = React.createClass({
           margins={props.margins}
         />
         <AxisLine
+          {...props}
           scale={props.yScale}
           orient={props.yOrient}
           outerTickSize={props.yOuterTickSize}
-          {...props}
           stroke={props.yAxisStrokeColor}
           strokeWidth={props.yAxisStrokeWidth}
         />

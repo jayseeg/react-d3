@@ -14,7 +14,7 @@ module.exports =  {
                          React.PropTypes.object
                        ]).isRequired,
     xOrient:           React.PropTypes.oneOf(['top', 'bottom']),
-    yOrient:           React.PropTypes.oneOf(['left', 'right']),
+    yOrient:           React.PropTypes.oneOf(['left', 'right', 'leftFull', 'full']),
     yAxisTickCount:    React.PropTypes.number,
     yAxisTickValues:   React.PropTypes.array,
     yAxisLabel:        React.PropTypes.string,
