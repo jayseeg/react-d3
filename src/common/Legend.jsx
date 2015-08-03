@@ -38,6 +38,14 @@ module.exports = React.createClass({
     };
   },
 
+  handleHover: function ( idx ) {
+    this.props.handleHover( idx );
+  },
+
+  handleHoverOff: function ( idx ) {
+    this.props.handleHoverOff( idx );
+  },
+
   render: function() {
     var props = this.props;
 
@@ -110,8 +118,8 @@ module.exports = React.createClass({
           style={itemStyle}
           key={idx}
           id={idx}
-          onMouseEnter={props.handleHover.bind(this, idx)}
-          onMouseLeave={props.handleHoverOff.bind(this, idx)}
+          onMouseEnter={this.handleHover.bind(this, idx)}
+          onMouseLeave={this.handleHoverOff.bind(this, idx)}
         >
           <span
             style={textStyle}

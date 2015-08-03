@@ -54,6 +54,7 @@ module.exports = React.createClass({
 
       return (
         <path
+          key={idx}
           d={arc()}
           fill={color}
           stroke='white'

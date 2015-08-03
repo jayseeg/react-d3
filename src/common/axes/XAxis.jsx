@@ -79,10 +79,10 @@ module.exports = React.createClass({
           margins={props.margins}
         />
         <AxisLine
+          {...props}
           scale={props.xScale}
           orient={props.xOrient}
           outerTickSize={props.xOuterTickSize}
-          {...props}
           stroke={props.xAxisStrokeColor}
           strokeWidth={props.xAxisStrokeWidth}
         />
