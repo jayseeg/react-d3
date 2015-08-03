@@ -11,10 +11,7 @@ module.exports = React.createClass({
   propTypes: {
     values: React.PropTypes.array,
     labels: React.PropTypes.array,
-    colors: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.func
-    ]),
+    colors: React.PropTypes.func,
     colorAccessor: React.PropTypes.func,
     title: React.PropTypes.string,
     padding: React.PropTypes.number,
@@ -26,7 +23,9 @@ module.exports = React.createClass({
   getDefaultProps() {
     return {
       padding: 0.1,
-      data: []
+      data: [],
+      colors: d3.scale.category20c(),
+      colorAccessor: (d, idx) => idx,
     };
   },
 
@@ -40,7 +39,6 @@ module.exports = React.createClass({
       .domain(bars)
       .rangeRoundBands([0, props.width], props.padding);
 
-
     return (
       <BarContainer
         {...props}
@@ -48,7 +46,6 @@ module.exports = React.createClass({
         width={xScale.rangeBand()}
         x={xScale(idx)}
         availableHeight={props.height}
-        fill={props.colors[props.colorAccessor(props.data[idx], idx)]}
         key={idx}
         hoverAnimation={props.hoverAnimation}
         xScale={xScale}
@@ -58,11 +55,7 @@ module.exports = React.createClass({
   },
 
   render() {
-
     var props = this.props;
-
-    // we want an array
-    var colors = typeof props.colors === 'function' ? props.colors() : props.colors;
 
     var bars;
     if (props.isStacked) {
@@ -70,7 +63,6 @@ module.exports = React.createClass({
     } else {
       bars = props.values.map(this.renderBarContainers);
     }
-    
 
     return (
       <g>{bars}</g>

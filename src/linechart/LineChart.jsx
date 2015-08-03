@@ -27,10 +27,7 @@ module.exports = React.createClass({
     hoverAnimation:    React.PropTypes.bool,
     interpolate:       React.PropTypes.bool,
     interpolationType: React.PropTypes.string,
-    colors:            React.PropTypes.oneOfType([
-                         React.PropTypes.array,
-                         React.PropTypes.func
-                       ]),
+    colors:            React.PropTypes.func,
     colorAccessor:     React.PropTypes.func,
   },
 
@@ -92,18 +89,11 @@ module.exports = React.createClass({
     scales.yScale = props.yDomain ? scales.yScale.domain(props.yDomain) : scales.yScale;
     scales.xScale = props.xDomain ? scales.xScale.domain(props.xDomain) : scales.xScale;
 
-    // setting here to make sure length of colors is available
-    var colorAccessor = (d, idx) => idx % props.colors.length;
+    if (props.colorsArray && props.colorsArray.length) props.colors.range(props.colorsArray)
 
     var trans = `translate(${ props.margins.left },${ props.margins.top })`;
     var dataSeriesArray = data.map( (series, idx) => {
-      // making fill color available off of an array
-      var fill;
-      if (typeof props.colors === 'function') {
-        fill = props.colors(colorAccessor(series, idx));
-      } else {
-        fill = props.colors[colorAccessor(data[idx], idx)];
-      }
+      var fill = props.colors(props.colorAccessor(series, idx));
 
       return (
         <DataSeries

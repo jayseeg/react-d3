@@ -5,29 +5,11 @@ var Bar = require('./Bar');
 var shade = require('../utils').shade;
 
 module.exports = React.createClass({
-
-  propTypes: {
-    fill: React.PropTypes.string,
-  },
-
-  getDefaultProps() {
-    return {
-      fill: '#3182BD'
-    };
-  },
-
-  getInitialState() {
-    return {
-      // fill is named as fill instead of initialFill to avoid
-      // confusion when passing down props from top parent
-      fill: this.props.fill
-    };
-  },
-
   renderBars(point, idx) {
     var props = this.props;
+    if (props.colorsArray && props.colorsArray.length) props.colors.range(props.colorsArray)
 
-    var fill = props.colors[idx]
+    var fill = props.colors(props.colorAccessor(point, idx))
 
     return (
       <Bar
